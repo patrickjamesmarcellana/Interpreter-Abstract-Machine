@@ -2,14 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import MachineInputBox from './MachineInputBox';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <MachineInputBox />
+    <App />
+    
+
   </React.StrictMode>
 );
 

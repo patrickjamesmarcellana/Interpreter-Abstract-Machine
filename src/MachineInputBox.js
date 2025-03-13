@@ -1,8 +1,4 @@
-import { useState } from 'react'
-
-function MachineInputBox() {
-
-  const [machine_specs, set_machine_specs] = useState("")
+function MachineInputBox({ machine_specs, set_machine_specs }) {
 
   const handleMachineSubmission = (event) => {
     event.preventDefault()
