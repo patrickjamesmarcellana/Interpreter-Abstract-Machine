@@ -1,7 +1,7 @@
 import Stack from "../data_structures/Stack"
 
 function StackTester() {
-  const stack = new Stack()
+  const stack = new Stack("S1")
   return (
     <div>
       <button title="Push X" onClick={() => stack.write("X")}>Push X</button>

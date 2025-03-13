@@ -13,7 +13,7 @@ function App() {
   return (
     <div>
       <MachineInputBox machine_specs={machine_specs} set_machine_specs={set_machine_specs}/>
-      {/* <QueueTester/> */}
+      <QueueTester/>
     </div>
   );
 }

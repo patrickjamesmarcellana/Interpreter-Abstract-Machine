@@ -1,7 +1,7 @@
 import Queue from "../data_structures/Queue"
 
 function QueueTester() {
-  const queue = new Queue()
+  const queue = new Queue("Q1")
   return (
     <div>
       <button title="Enqueue X" onClick={() => queue.write("X")}>Enqueue X</button>

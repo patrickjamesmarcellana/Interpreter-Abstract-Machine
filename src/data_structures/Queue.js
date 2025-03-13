@@ -1,6 +1,7 @@
 class Queue {
-  constructor() {
+  constructor(name) {
     this.items = []
+    this.name = name
   }
 
   write(memory_object) {
