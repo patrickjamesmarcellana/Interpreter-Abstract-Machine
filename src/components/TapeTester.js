@@ -1,4 +1,4 @@
-import Tape_1D from "../data_structures/Tape"
+import Tape_1D from "../data_structures/Tape_1D"
 
 function TapeTester() {
   const tape = new Tape_1D("T1", true)
