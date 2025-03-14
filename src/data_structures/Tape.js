@@ -1,0 +1,83 @@
+class Tape_1D {
+  constructor(name, is_input_tape) {
+    this.name = name
+    this.head = 0
+    this.tape = new Map()
+    this.blank_symbol = '#'
+    this.is_input_tape = is_input_tape
+
+    this.initialize()
+  }
+
+  initialize() {
+    this.tape.set(this.head, this.blank_symbol)
+  }
+
+  right(read_symbol, new_symbol) {
+    const right_key = this.head + 1
+
+    // check if the node to the right exists
+    if(!this.tape.has(right_key) && read_symbol === this.blank_symbol) {
+      this.tape.set(right_key, this.blank_symbol)
+    }
+
+    if(this.tape.get(right_key) === read_symbol) {
+      // overwrite symbol to the right
+      this.tape.set(right_key, new_symbol)
+
+      // move to the right of the input head
+      this.head += 1
+      
+      console.log("Successfully performed the right operation")
+    } else {
+      console.log("Incorrect read symbol to the right of the tape head")
+    }
+  }
+
+  left(read_symbol, new_symbol) {
+    const left_key = this.head - 1
+
+    // check if the node to the left exists
+    if(!this.tape.has(left_key) && read_symbol === this.blank_symbol) {
+      this.tape.set(left_key, '#')
+    }
+
+    if(this.tape.get(left_key) === read_symbol) {
+      // overwrite symbol to the left
+      this.tape.set(left_key, new_symbol)
+
+      // move to the left of the input head
+      this.head -= 1
+      
+      console.log("Successfully performed the left operation")
+    } else {
+      console.log("Incorrect read symbol to the left of the tape head")
+    }
+  }
+
+  print_tape() {
+    const tape_in_array = [];
+
+    // convert the tape to an array by sorting the key indices
+    [...this.tape.keys()]
+      .sort((a, b) => a - b) 
+      .forEach(key => tape_in_array.push(this.tape.get(key)));
+
+    console.log(tape_in_array)
+  }
+
+  print_keys() {
+    const keys = [];
+    [...this.tape.keys()]
+      .sort((a, b) => a - b) 
+      .forEach(key => keys.push(key));
+    
+    console.log(keys)
+  }
+
+  print_head() {
+    console.log(this.head)
+  }
+}
+
+export default Tape_1D
