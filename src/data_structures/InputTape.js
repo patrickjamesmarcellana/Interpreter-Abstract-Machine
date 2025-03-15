@@ -18,11 +18,15 @@ class InputTape {
     this.tape.push(this.blank_symbol)
   }
 
-  scan(scan_symbol) {
+  scan_right(scan_symbol) {
     const right_key = this.head + 1
 
+    if(right_key >= this.tape.length) {
+      console.log("Cannot scan right further")
+      return false
+    }
+
     if(this.tape[right_key] === scan_symbol) {
-      // correct scan symbol
       this.head = right_key
       console.log(`Successfully scanned ${scan_symbol}`)
       return true
