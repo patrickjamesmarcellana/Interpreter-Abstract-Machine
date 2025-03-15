@@ -1,4 +1,4 @@
-class Tape_2D {
+class Tape2D {
   constructor(name, is_input_tape) {
     this.name = name
     this.head = this.get_key(0, 0)
@@ -150,4 +150,4 @@ class Tape_2D {
   }
 }
 
-export default Tape_2D
+export default Tape2D

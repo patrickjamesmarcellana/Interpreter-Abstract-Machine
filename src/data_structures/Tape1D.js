@@ -1,4 +1,4 @@
-class Tape_1D {
+class Tape1D {
   constructor(name, is_input_tape) {
     this.name = name
     this.head = 0
@@ -80,4 +80,4 @@ class Tape_1D {
   }
 }
 
-export default Tape_1D
+export default Tape1D

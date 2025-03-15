@@ -1,7 +1,7 @@
-import Input_Tape from "../data_structures/Input_Tape"
+import InputTape from "../data_structures/InputTape"
 
 function InputTapeTester() {
-  const input_tape = new Input_Tape("I1", "00001111")
+  const input_tape = new InputTape("I1", "00001111")
   return (
     <div>
       <button title="Scan 0" onClick={() => input_tape.scan('0')}>Scan 0</button>

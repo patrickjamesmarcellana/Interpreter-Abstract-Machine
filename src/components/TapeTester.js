@@ -1,7 +1,7 @@
-import Tape_1D from "../data_structures/Tape_1D"
+import Tape1D from "../data_structures/Tape1D"
 
 function TapeTester() {
-  const tape = new Tape_1D("T1", true)
+  const tape = new Tape1D("T1", true)
   return (
     <div>
       <button onClick={() => tape.right("#", "0")}>Right (#, 0)</button>

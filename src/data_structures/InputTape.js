@@ -1,4 +1,4 @@
-class Input_Tape {
+class InputTape {
   constructor(name, true_input) {
     this.name = name
     this.head = 0
@@ -51,4 +51,4 @@ class Input_Tape {
   }
 }
 
-export default Input_Tape
+export default InputTape
