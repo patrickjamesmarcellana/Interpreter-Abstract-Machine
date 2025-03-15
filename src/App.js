@@ -7,6 +7,7 @@ import QueueTester from './components/QueueTester';
 import TapeTester from './components/TapeTester';
 import Tape2DTester from './components/Tape2DTester';
 import InputTapeTester from './components/InputTapeTester';
+import OutputTapeTester from './components/OutputTapeTester';
 
 function App() {
   const [machine_specs, set_machine_specs] = useState("")
@@ -16,7 +17,7 @@ function App() {
   return (
     <div>
       <MachineInputBox machine_specs={machine_specs} set_machine_specs={set_machine_specs}/>
-      <InputTapeTester/>
+      <OutputTapeTester/>
     </div>
   );
 }
