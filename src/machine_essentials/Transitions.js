@@ -4,6 +4,11 @@ function scan(input_tape, scan_symbol) {
   return input_tape.scan(scan_symbol)
 }
 
+function print(output_tape, print_symbol) {
+  output_tape.print(print_symbol)
+  return true 
+}
+
 // Storing Functions in an Array
 
 // const operations = [
