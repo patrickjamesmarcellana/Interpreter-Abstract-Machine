@@ -6,6 +6,8 @@ class Stack {
 
   write(memory_object) {
     this.items.push(memory_object)
+    console.log(`Successfully pushed ${memory_object} to stack ${this.name}`)
+    return true
   }
 
   read() {
@@ -20,14 +22,15 @@ class Stack {
 
   peek() {
     if(this.is_empty()) {
-      return "Stack is empty"
+      console.log("Stack is empty")
     }
     return this.items
   }
 
   peek_on_top() {
     if(this.is_empty()) {
-      return "Stack is empty"
+      console.log("Stack is empty")
+      return null
     }
     return this.items[this.items.length - 1]
   }
