@@ -38,8 +38,10 @@ class Tape2D {
       this.head = right_key
       
       console.log("Successfully performed the right operation")
+      return true
     } else {
       console.log("Incorrect read symbol to the right of the tape head")
+      return false
     }
   }
 
@@ -60,8 +62,10 @@ class Tape2D {
       this.head = left_key
       
       console.log("Successfully performed the left operation")
+      return true
     } else {
       console.log("Incorrect read symbol to the left of the tape head")
+      return false
     }
   }
 
@@ -82,8 +86,10 @@ class Tape2D {
       this.head = up_key
       
       console.log("Successfully performed the up operation")
+      return true
     } else {
       console.log("Incorrect read symbol above the tape head")
+      return false
     }
   }
 
@@ -104,8 +110,10 @@ class Tape2D {
       this.head = down_key
       
       console.log("Successfully performed the down operation")
+      return true
     } else {
       console.log("Incorrect read symbol below the tape head")
+      return false
     }
   }
 
