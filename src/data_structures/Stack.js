@@ -22,14 +22,14 @@ class Stack {
 
   peek() {
     if(this.is_empty()) {
-      console.log("Stack is empty")
+      console.log(`Stack ${this.name} is empty`)
     }
     return this.items
   }
 
   peek_on_top() {
     if(this.is_empty()) {
-      console.log("Stack is empty")
+      console.log(`Stack ${this.name} is empty`)
       return null
     }
     return this.items[this.items.length - 1]
@@ -44,7 +44,7 @@ class Stack {
   }
 
   log_stack() {
-    console.log(this.items)
+    console.log(`Content of stack ${this.name}: ${this.items}`)
   }
 }
 
