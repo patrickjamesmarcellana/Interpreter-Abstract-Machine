@@ -6,6 +6,5 @@ class State {
     this.transitions = []
     this.is_accept = is_accept
     this.is_reject= is_reject
-    this.destination_state = destination_state
   }
 }
