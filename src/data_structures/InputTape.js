@@ -22,16 +22,16 @@ class InputTape {
     const right_key = this.head + 1
 
     if(right_key >= this.tape.length) {
-      console.log("Cannot scan right further")
+      console.log(`Cannot scan right further on input tape ${this.name}`)
       return false
     }
 
     if(this.tape[right_key] === scan_symbol) {
       this.head = right_key
-      console.log(`Successfully scanned ${scan_symbol}`)
+      console.log(`Successfully scanned ${scan_symbol} on input tape ${this.name}`)
       return true
     } else {
-      console.log(`Incorrect scan symbol ${scan_symbol} does not match actual symbol ${this.tape[right_key]}`)
+      console.log(`Incorrect scan symbol ${scan_symbol} does not match actual symbol ${this.tape[right_key]} on input tape ${this.name}`)
       return false
     }
   }
@@ -40,34 +40,34 @@ class InputTape {
     const left_key = this.head - 1
 
     if(left_key < 0) {
-      console.log("Cannot scan left further")
+      console.log(`Cannot scan left further on input tape ${this.name}`)
       return false
     }
 
     if(this.tape[left_key] === scan_symbol) {
       this.head = left_key
-      console.log(`Successfully scanned ${scan_symbol}`)
+      console.log(`Successfully scanned ${scan_symbol} on input tape ${this.name}`)
       return true
     } else {
-      console.log(`Incorrect scan symbol ${scan_symbol} does not match actual symbol ${this.tape[left_key]}`)
+      console.log(`Incorrect scan symbol ${scan_symbol} does not match actual symbol ${this.tape[left_key]} on input tape ${this.name}`)
       return false
     }
   }
 
   print_tape() {
-    console.log(this.tape)
+    console.log(`Contents of input tape ${this.name}: ${this.tape}`)
   }
 
   print_head() {
-    console.log(this.head)
+    console.log(`Head of input tape ${this.name}: ${this.head}`)
   }
 
   is_complete() {
     if(this.head === this.tape.length - 1) {
-      console.log("Input complete")
+      console.log(`Input tape ${this.name} complete`)
       return true
     } else {
-      console.log("Input incomplete")
+      console.log(`Input tape ${this.name} incomplete`)
       return false
     }
   }
