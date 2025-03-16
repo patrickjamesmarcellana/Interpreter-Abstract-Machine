@@ -29,8 +29,10 @@ class Tape1D {
       this.head += 1
       
       console.log("Successfully performed the right operation")
+      return true
     } else {
       console.log("Incorrect read symbol to the right of the tape head")
+      return false
     }
   }
 
@@ -50,8 +52,10 @@ class Tape1D {
       this.head -= 1
       
       console.log("Successfully performed the left operation")
+      return true
     } else {
       console.log("Incorrect read symbol to the left of the tape head")
+      return false
     }
   }
 
