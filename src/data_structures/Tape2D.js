@@ -37,10 +37,10 @@ class Tape2D {
       // move to the right of the input head
       this.head = right_key
       
-      console.log("Successfully performed the right operation")
+      console.log(`Successfully read ${read_symbol} and wrote ${write_symbol} with the right operation on the 2D tape ${this.name}`)
       return true
     } else {
-      console.log("Incorrect read symbol to the right of the tape head")
+      console.log(`Incorrect read symbol ${read_symbol} to the right of the tape head of the 2d tape ${this.name}`)
       return false
     }
   }
@@ -61,10 +61,10 @@ class Tape2D {
       // move to the left of the input head
       this.head = left_key
       
-      console.log("Successfully performed the left operation")
+      console.log(`Successfully read ${read_symbol} and wrote ${write_symbol} with the left operation on the 2D tape ${this.name}`)
       return true
     } else {
-      console.log("Incorrect read symbol to the left of the tape head")
+      console.log(`Incorrect read symbol ${read_symbol} to the left of the tape head of the 2d tape ${this.name}`)
       return false
     }
   }
@@ -85,10 +85,10 @@ class Tape2D {
       // move to the left of the input head
       this.head = up_key
       
-      console.log("Successfully performed the up operation")
+      console.log(`Successfully read ${read_symbol} and wrote ${write_symbol} with the up operation on the 2D tape ${this.name}`)
       return true
     } else {
-      console.log("Incorrect read symbol above the tape head")
+      console.log(`Incorrect read symbol ${read_symbol} above tape head of the 2d tape ${this.name}`)
       return false
     }
   }
@@ -109,10 +109,10 @@ class Tape2D {
       // move to the left of the input head
       this.head = down_key
       
-      console.log("Successfully performed the down operation")
+      console.log(`Successfully read ${read_symbol} and wrote ${write_symbol} with the down operation on the 2D tape ${this.name}`)
       return true
     } else {
-      console.log("Incorrect read symbol below the tape head")
+      console.log(`Incorrect read symbol ${read_symbol} below tape head of the 2d tape ${this.name}`)
       return false
     }
   }
@@ -142,7 +142,7 @@ class Tape2D {
       tape += row + "\n"
     }
     
-    console.log(tape)
+    console.log(`Content of the 2d tape ${this.name}:\n ${tape}`)
   }
 
   print_keys() {
@@ -150,11 +150,14 @@ class Tape2D {
       .map(key => key.split(",").map(Number))
       .sort((a, b) => a[1] - b[1] || a[0] - b[0]);
 
-    sortedKeys.forEach(([x, y]) => console.log(`(${x}, ${y}) -> ${this.tape.get(this.get_key(x, y))}`));
+    const keys = []
+
+    sortedKeys.forEach(([x, y]) => keys.push(`(${x}, ${y}) -> ${this.tape.get(this.get_key(x, y))}`));
+    console.log(`Keys of the 2d tape ${this.name}:\n ${keys}`)
   }
 
   print_head() {
-    console.log(this.head)
+    console.log(`Head of the 2d tape ${this.name}: ${this.head}`)
   }
 }
 
