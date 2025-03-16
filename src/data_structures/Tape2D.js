@@ -21,7 +21,7 @@ class Tape2D {
     this.tape.set(this.head, this.blank_symbol)
   }
 
-  right(read_symbol, new_symbol) {
+  right(read_symbol, write_symbol) {
     const parsed_head = this.parse_key(this.head)
     const right_key = this.get_key(parsed_head[0] + 1, parsed_head[1])
 
@@ -32,7 +32,7 @@ class Tape2D {
 
     if(this.tape.get(right_key) === read_symbol) {
       // overwrite symbol to the right
-      this.tape.set(right_key, new_symbol)
+      this.tape.set(right_key, write_symbol)
 
       // move to the right of the input head
       this.head = right_key
@@ -43,7 +43,7 @@ class Tape2D {
     }
   }
 
-  left(read_symbol, new_symbol) {
+  left(read_symbol, write_symbol) {
     const parsed_head = this.parse_key(this.head)
     const left_key = this.get_key(parsed_head[0] - 1, parsed_head[1])
 
@@ -54,7 +54,7 @@ class Tape2D {
 
     if(this.tape.get(left_key) === read_symbol) {
       // overwrite symbol to the left
-      this.tape.set(left_key, new_symbol)
+      this.tape.set(left_key, write_symbol)
 
       // move to the left of the input head
       this.head = left_key
@@ -65,7 +65,7 @@ class Tape2D {
     }
   }
 
-  up(read_symbol, new_symbol) {
+  up(read_symbol, write_symbol) {
     const parsed_head = this.parse_key(this.head)
     const up_key = this.get_key(parsed_head[0], parsed_head[1] - 1)
 
@@ -76,7 +76,7 @@ class Tape2D {
 
     if(this.tape.get(up_key) === read_symbol) {
       // overwrite symbol above
-      this.tape.set(up_key, new_symbol)
+      this.tape.set(up_key, write_symbol)
 
       // move to the left of the input head
       this.head = up_key
@@ -87,7 +87,7 @@ class Tape2D {
     }
   }
 
-  down(read_symbol, new_symbol) {
+  down(read_symbol, write_symbol) {
     const parsed_head = this.parse_key(this.head)
     const down_key = this.get_key(parsed_head[0], parsed_head[1] + 1)
 
@@ -98,7 +98,7 @@ class Tape2D {
 
     if(this.tape.get(down_key) === read_symbol) {
       // overwrite symbol below
-      this.tape.set(down_key, new_symbol)
+      this.tape.set(down_key, write_symbol)
 
       // move to the left of the input head
       this.head = down_key
