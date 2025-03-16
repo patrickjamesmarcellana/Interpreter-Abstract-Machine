@@ -11,7 +11,7 @@ class OutputTape {
   }
 
   print_tape() {
-    console.log(`Output tape content: ${this.tape}`)
+    console.log(`Output tape ${this.name} content: ${this.tape}`)
   }
 }
 
