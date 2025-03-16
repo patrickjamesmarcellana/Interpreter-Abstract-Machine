@@ -28,10 +28,10 @@ class Tape1D {
       // move to the right of the input head
       this.head += 1
       
-      console.log("Successfully performed the right operation")
+      console.log(`Successfully read ${read_symbol} and wrote ${write_symbol} with the right operation on the 1D tape ${this.name}`)
       return true
     } else {
-      console.log("Incorrect read symbol to the right of the tape head")
+      console.log(`Incorrect read symbol ${read_symbol} to the right of the tape head of the 1d tape ${this.name}`)
       return false
     }
   }
@@ -51,10 +51,10 @@ class Tape1D {
       // move to the left of the input head
       this.head -= 1
       
-      console.log("Successfully performed the left operation")
+      console.log(`Successfully read ${read_symbol} and wrote ${write_symbol} with the left operation on the 1D tape ${this.name}`)
       return true
     } else {
-      console.log("Incorrect read symbol to the left of the tape head")
+      console.log(`Incorrect read symbol ${read_symbol} to the left of the tape head of the 1d tape ${this.name}`)
       return false
     }
   }
@@ -67,7 +67,7 @@ class Tape1D {
       .sort((a, b) => a - b) 
       .forEach(key => tape_in_array.push(this.tape.get(key)));
 
-    console.log(tape_in_array)
+    console.log(`Content of the 1d tape ${this.name}:\n ${tape_in_array}`)
   }
 
   print_keys() {
@@ -76,11 +76,11 @@ class Tape1D {
       .sort((a, b) => a - b) 
       .forEach(key => keys.push(key));
     
-    console.log(keys)
+    console.log(`Keys of the 1d tape ${this.name}:\n ${keys}`)
   }
 
   print_head() {
-    console.log(this.head)
+    console.log(`Head of the 1d tape ${this.name}: ${this.head}`)
   }
 }
 
