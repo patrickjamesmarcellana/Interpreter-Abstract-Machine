@@ -36,6 +36,24 @@ class InputTape {
     }
   }
 
+  scan_left(scan_symbol) {
+    const left_key = this.head - 1
+
+    if(left_key < 0) {
+      console.log("Cannot scan left further")
+      return false
+    }
+
+    if(this.tape[left_key] === scan_symbol) {
+      this.head = left_key
+      console.log(`Successfully scanned ${scan_symbol}`)
+      return true
+    } else {
+      console.log(`Incorrect scan symbol ${scan_symbol} does not match actual symbol ${this.tape[left_key]}`)
+      return false
+    }
+  }
+
   print_tape() {
     console.log(this.tape)
   }
