@@ -45,6 +45,18 @@ function scan_left(input_tape, scan_symbol) {
   return input_tape.scan_left(scan_symbol)
 }
 
+/**
+ * 
+ * @param {Stack | Queue} memory_object 
+ * @returns true if the read operation was successful
+ *          false if otherwise
+ */
+function read(memory_object) {
+  return memory_object.read()
+}
+
+
+
 // Storing Functions in an Array
 
 // const operations = [
