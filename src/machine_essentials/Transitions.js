@@ -66,6 +66,54 @@ function write(memory_object, write_symbol) {
   return memory_object.write(write_symbol)
 }
 
+/**
+ * 
+ * @param {Tape1D | Tape2D} memory_object 
+ * @param {char} read_symbol 
+ * @param {char} write_symbol 
+ * @returns true if the right operation was successful
+ *          false if otherwise
+ */
+function right(memory_object, read_symbol, write_symbol) {
+  return memory_object.right(read_symbol, write_symbol)
+}
+
+/**
+ * 
+ * @param {Tape1D | Tape2D} memory_object 
+ * @param {char} read_symbol 
+ * @param {char} write_symbol 
+ * @returns true if the left operation was successful
+ *          false if otherwise
+ */
+function left(memory_object, read_symbol, write_symbol) {
+  return memory_object.left(read_symbol, write_symbol)
+}
+
+/**
+ * 
+ * @param {Tape2D} memory_object 
+ * @param {char} read_symbol 
+ * @param {char} write_symbol 
+ * @returns true if the up operation was successful
+ *          false if otherwise
+ */
+function up(memory_object, read_symbol, write_symbol) {
+  return memory_object.up(read_symbol, write_symbol)
+}
+
+/**
+ * 
+ * @param {Tape2D} memory_object 
+ * @param {char} read_symbol 
+ * @param {char} write_symbol 
+ * @returns true if the down operation was successful
+ *          false if otherwise
+ */
+function down(memory_object, read_symbol, write_symbol) {
+  return memory_object.down(read_symbol, write_symbol)
+}
+
 
 // Storing Functions in an Array
 
