@@ -1,11 +1,9 @@
 class InputTape {
-  constructor(name, true_input) {
+  constructor(name) {
     this.name = name
     this.head = 0
     this.tape = []
     this.blank_symbol = '#'
-
-    this.initialize(true_input)
   }
 
   initialize(true_input) {
