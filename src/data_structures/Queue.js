@@ -4,9 +4,9 @@ class Queue {
     this.name = name
   }
 
-  write(memory_object) {
-    this.items.push(memory_object)
-    console.log(`Successfully pushed ${memory_object} to queue ${this.name}`)
+  write(write_symbol) {
+    this.items.push(write_symbol)
+    console.log(`Successfully pushed ${write_symbol} to queue ${this.name}`)
     return true
   }
 

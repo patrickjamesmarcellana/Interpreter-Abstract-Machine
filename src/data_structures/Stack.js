@@ -4,9 +4,9 @@ class Stack {
     this.name = name
   }
 
-  write(memory_object) {
-    this.items.push(memory_object)
-    console.log(`Successfully pushed ${memory_object} to stack ${this.name}`)
+  write(write_symbol) {
+    this.items.push(write_symbol)
+    console.log(`Successfully pushed ${write_symbol} to stack ${this.name}`)
     return true
   }
 
