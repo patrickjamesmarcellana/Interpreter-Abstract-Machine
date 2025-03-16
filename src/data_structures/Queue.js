@@ -6,6 +6,8 @@ class Queue {
 
   write(memory_object) {
     this.items.push(memory_object)
+    console.log(`Successfully pushed ${memory_object} to queue ${this.name}`)
+    return true
   }
 
   read() {
@@ -24,14 +26,15 @@ class Queue {
 
   peek() {
     if(this.is_empty()) {
-      return "Queue is empty"
+      console.log("Queue is empty")
     }
     return this.items
   }
 
   peek_in_front() {
     if(this.is_empty()) {
-      return "Stack is empty"
+      console.log("Stack is empty")
+      return null
     }
     return this.items[0]
   }
