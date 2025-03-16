@@ -55,6 +55,16 @@ function read(memory_object) {
   return memory_object.read()
 }
 
+/**
+ * 
+ * @param {Stack | Queue} memory_object 
+ * @param {char} write_symbol 
+ * @returns true if the write operation was successful
+ *          false if otherwise
+ */
+function write(memory_object, write_symbol) {
+  return memory_object.write(write_symbol)
+}
 
 
 // Storing Functions in an Array
