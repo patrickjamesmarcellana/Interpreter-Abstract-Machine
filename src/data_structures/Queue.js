@@ -32,7 +32,7 @@ class Queue {
     return this.items
   }
 
-  peek_in_front() {
+  peek_next() {
     if(this.is_empty()) {
       console.log(`Queue ${this.name} is empty`)
       return null
@@ -44,7 +44,7 @@ class Queue {
     return this.items.length
   }
 
-  log_queue() {
+  log() {
     console.log(`Queue ${this.name} content: ${this.items.join("-->")}`)
   }
 }
