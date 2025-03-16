@@ -10,10 +10,12 @@ class Stack {
 
   read() {
     if(this.is_empty()) {
-      return "Stack is empty"
+      console.log(`Stack ${this.name} is empty`)
+      return false
     }
 
-    return  this.items.pop()
+    console.log(`Removed ${this.items.pop()} from the stack ${this.name}`)
+    return  true
   }
 
   peek() {

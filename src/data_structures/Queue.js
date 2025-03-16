@@ -10,9 +10,12 @@ class Queue {
 
   read() {
     if(this.is_empty()) {
-      return "Queue is empty"
+      console.log(`Queue ${this.name} is empty`)
+      return false
     }
-    return this.items.shift()
+
+    console.log(`Popped ${this.items.shift()} from the queue ${this.name}`)
+    return true
   }
 
   is_empty() {
