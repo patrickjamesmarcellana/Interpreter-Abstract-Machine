@@ -7,10 +7,11 @@ class OutputTape {
 
   print(output_symbol) {
     this.tape.push(output_symbol)
+    console.log(`Successfully printed ${output_symbol} to the output tape ${this.name}`)
   }
 
   print_tape() {
-    console.log(this.tape)
+    console.log(`Output tape content: ${this.tape}`)
   }
 }
 
