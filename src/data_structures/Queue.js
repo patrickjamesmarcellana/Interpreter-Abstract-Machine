@@ -16,7 +16,7 @@ class Queue {
       return false
     }
 
-    console.log(`Popped ${this.items.shift()} from the queue ${this.name}`)
+    console.log(`Popped ${this.items.shift()} from queue ${this.name}`)
     return true
   }
 
@@ -26,14 +26,15 @@ class Queue {
 
   peek() {
     if(this.is_empty()) {
-      console.log("Queue is empty")
+      console.log(`Queue ${this.name} is empty`)
     }
+    
     return this.items
   }
 
   peek_in_front() {
     if(this.is_empty()) {
-      console.log("Stack is empty")
+      console.log(`Queue ${this.name} is empty`)
       return null
     }
     return this.items[0]
@@ -44,7 +45,7 @@ class Queue {
   }
 
   log_queue() {
-    console.log(this.items.join("-->"))
+    console.log(`Queue ${this.name} content: ${this.items.join("-->")}`)
   }
 }
 
