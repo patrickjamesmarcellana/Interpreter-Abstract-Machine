@@ -13,7 +13,7 @@ class Tape1D {
     this.tape.set(this.head, this.blank_symbol)
   }
 
-  right(read_symbol, new_symbol) {
+  right(read_symbol, write_symbol) {
     const right_key = this.head + 1
 
     // check if the node to the right exists
@@ -23,7 +23,7 @@ class Tape1D {
 
     if(this.tape.get(right_key) === read_symbol) {
       // overwrite symbol to the right
-      this.tape.set(right_key, new_symbol)
+      this.tape.set(right_key, write_symbol)
 
       // move to the right of the input head
       this.head += 1
@@ -34,7 +34,7 @@ class Tape1D {
     }
   }
 
-  left(read_symbol, new_symbol) {
+  left(read_symbol, write_symbol) {
     const left_key = this.head - 1
 
     // check if the node to the left exists
@@ -42,9 +42,9 @@ class Tape1D {
       this.tape.set(left_key, '#')
     }
 
-    if(this.tape.get(left_key) === read_symbol) {
+    if(this.tape.get(left_key) === write_symbol) {
       // overwrite symbol to the left
-      this.tape.set(left_key, new_symbol)
+      this.tape.set(left_key, write_symbol)
 
       // move to the left of the input head
       this.head -= 1
