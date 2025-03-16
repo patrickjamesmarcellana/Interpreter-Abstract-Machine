@@ -23,6 +23,28 @@ function print(output_tape, print_symbol) {
   return true 
 }
 
+/**
+ * 
+ * @param {InputTape} input_tape 
+ * @param {char} scan_symbol 
+ * @returns true if scan_right was successful
+ *          false if otherwise
+ */
+function scan_right(input_tape, scan_symbol) {
+  return input_tape.scan_right(scan_symbol)
+}
+
+/**
+ * 
+ * @param {InputTape} input_tape 
+ * @param {char} scan_symbol 
+ * @returns true if scan_left was successful
+ *          false if otherwise
+ */
+function scan_left(input_tape, scan_symbol) {
+  return input_tape.scan_left(scan_symbol)
+}
+
 // Storing Functions in an Array
 
 // const operations = [
