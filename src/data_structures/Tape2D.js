@@ -118,13 +118,12 @@ class Tape2D {
   }
 
   print_tape() {
-    // const coordinates = [...this.tape.keys()].map(key => key.match(/-?\d+/g).map(Number));
     const coordinates = [...this.tape.keys()].map(key => key.split(",").map(Number))
-    console.log("Coordinates: " + coordinates)
+    // console.log("Coordinates: " + coordinates)
     const xs = coordinates.map(([x, _]) => x)
-    console.log("xs: " + xs)
+    // console.log("xs: " + xs)
     const ys = coordinates.map(([_, y]) => y)
-    console.log("ys: " + ys)
+    // console.log("ys: " + ys)
 
     const min_x = Math.min(...xs), max_x = Math.max(...xs)
     const min_y = Math.min(...ys), max_y = Math.max(...ys)
@@ -142,7 +141,7 @@ class Tape2D {
       tape += row + "\n"
     }
     
-    console.log(`Content of the 2d tape ${this.name}:\n ${tape}`)
+    console.log(`Content of the 2d tape ${this.name}:\n${tape}`)
   }
 
   print_keys() {
@@ -153,7 +152,7 @@ class Tape2D {
     const keys = []
 
     sortedKeys.forEach(([x, y]) => keys.push(`(${x}, ${y}) -> ${this.tape.get(this.get_key(x, y))}`));
-    console.log(`Keys of the 2d tape ${this.name}:\n ${keys}`)
+    console.log(`Keys of the 2d tape ${this.name}:\n${keys}`)
   }
 
   print_head() {

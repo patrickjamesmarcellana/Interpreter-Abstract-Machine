@@ -67,7 +67,7 @@ class Tape1D {
       .sort((a, b) => a - b) 
       .forEach(key => tape_in_array.push(this.tape.get(key)));
 
-    console.log(`Content of the 1d tape ${this.name}:\n ${tape_in_array}`)
+    console.log(`Content of the 1d tape ${this.name}:\n${tape_in_array}`)
   }
 
   print_keys() {
@@ -76,7 +76,7 @@ class Tape1D {
       .sort((a, b) => a - b) 
       .forEach(key => keys.push(key));
     
-    console.log(`Keys of the 1d tape ${this.name}:\n ${keys}`)
+    console.log(`Keys of the 1d tape ${this.name}:\n${keys}`)
   }
 
   print_head() {
