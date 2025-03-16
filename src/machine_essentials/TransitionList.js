@@ -1,6 +1,3 @@
-// to use these, iterate through all saved lambda functions of a state by creating a new timeline 
-// per possible transition but excluding those that return false
-
 /**
  * 
  * @param {InputTape} input_tape 
@@ -113,6 +110,9 @@ export function up(memory_object, read_symbol, write_symbol) {
 export function down(memory_object, read_symbol, write_symbol) {
   return memory_object.down(read_symbol, write_symbol)
 }
+
+// to use these, iterate through all saved lambda functions of a state by creating a new timeline 
+// per possible transition but excluding those that return false
 
 
 // Storing Functions in an Array

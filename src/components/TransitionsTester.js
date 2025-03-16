@@ -1,4 +1,4 @@
-import {scan, print, scan_right, scan_left, read, write, right, left, up, down} from "../machine_essentials/Transitions"
+import {scan, print, scan_right, scan_left, read, write, right, left, up, down} from "../machine_essentials/TransitionList"
 import InputTape from "../data_structures/InputTape"
 import OutputTape from "../data_structures/OutputTape"
 import Queue from "../data_structures/Queue"
