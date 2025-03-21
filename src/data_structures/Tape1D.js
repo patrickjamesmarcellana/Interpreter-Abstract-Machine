@@ -9,6 +9,14 @@ class Tape1D {
     this.initialize()
   }
 
+  constructor(name, head, is_input_tape) {
+    this.name = name
+    this.head = head
+    this.tape = tape
+    this.blank_symbol = '#'
+    this.is_input_tape = is_input_tape
+  }
+
   initialize() {
     this.tape.set(this.head, this.blank_symbol)
   }

@@ -4,6 +4,12 @@ class Queue {
     this.name = name
   }
 
+  constructor(name, items) {
+    this.items = items
+    this.name = name
+  }
+
+
   write(write_symbol) {
     this.items.push(write_symbol)
     console.log(`Successfully pushed ${write_symbol} to queue ${this.name}`)

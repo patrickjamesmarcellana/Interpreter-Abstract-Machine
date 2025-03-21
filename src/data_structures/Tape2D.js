@@ -9,6 +9,14 @@ class Tape2D {
     this.initialize()
   }
 
+  constructor(name, head, tape, is_input_tape) {
+    this.name = name
+    this.head = head // head must be in string format
+    this.tape = tape
+    this.blank_symbol = '#'
+    this.is_input_tape = is_input_tape
+  }
+
   get_key(x, y) {
     return `${x},${y}`
   }
