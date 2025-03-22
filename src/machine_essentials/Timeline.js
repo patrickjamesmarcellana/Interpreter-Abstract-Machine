@@ -6,6 +6,10 @@ class Timeline {
     this.is_dead = is_dead
   }
 
+  clone() {
+    return new Timeline(this.steps_list, this.is_accepted, this.is_dead)
+  }
+
   add_step(step) {
     this.steps_list.add(step)
   }
