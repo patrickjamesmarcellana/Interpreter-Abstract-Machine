@@ -6,6 +6,10 @@ class InputTape {
     this.blank_symbol = '#'
   }
 
+  clone() {
+    return new InputTape(this.name, this.head, this.tape)
+  }
+
   initialize(true_input) {
     // place the true input on the current tape
     this.tape.push(this.blank_symbol)

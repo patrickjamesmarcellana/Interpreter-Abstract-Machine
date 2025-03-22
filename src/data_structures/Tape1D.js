@@ -8,6 +8,10 @@ class Tape1D {
     // this.initialize()
   }
 
+  clone() {
+    return Tape1D(this.name, this.head, this.tape, this.is_input_tape)
+  }
+
   initialize() {
     this.tape.set(this.head, this.blank_symbol)
   }

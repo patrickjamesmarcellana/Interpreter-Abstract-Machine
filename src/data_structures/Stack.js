@@ -4,6 +4,10 @@ class Stack {
     this.name = name
   }
 
+  clone() {
+    return new Stack(this.name, this.items)
+  }
+
   write(write_symbol) {
     this.items.push(write_symbol)
     console.log(`Successfully pushed ${write_symbol} to stack ${this.name}`)
