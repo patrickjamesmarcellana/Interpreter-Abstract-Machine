@@ -8,6 +8,7 @@ import Queue from "./data_structures/Queue"
 import Stack from "./data_structures/Stack"
 import Tape1D from "./data_structures/Tape1D"
 import Tape2D from "./data_structures/Tape2D"
+import MemoryObjects from "./data_structures/MemoryObjects"
 
 import TransitionsTester from './components/TransitionsTester';
 import State from './machine_essentials/State';
@@ -22,7 +23,8 @@ function App() {
 
   // create memory objects
   const input_tape_1 =  new InputTape("IT1") // automatically create an input tape if no Tape1D or Tape2D was declared
-  const memory_structures_map = new Map()
+  const memory_objects = new MemoryObjects()
+  memory_objects.upsert("IT1", input_tape_1)
 
   // function definitions
   function get_unique_state_names(transitions) {
@@ -39,14 +41,14 @@ function App() {
 
   // create transitions
   const machine_transitions = useMemo(() => [
-    new Transition("q0", (input_tape_1) => scan(input_tape_1, '0'), "q0"),
-    new Transition("q0", (input_tape_1) => scan(input_tape_1, '1'), "q1"),
-    new Transition("q0", (input_tape_1) => scan(input_tape_1, '1'), "accept"),
-    new Transition("q1", (input_tape_1) => scan(input_tape_1, '0'), "q0"),
-    new Transition("q1", (input_tape_1) => scan(input_tape_1, '1'), "q2"),
-    new Transition("q2", (input_tape_1) => scan(input_tape_1, '0'), "q0"),
-    new Transition("q2", (input_tape_1) => scan(input_tape_1, '1'), "q1"),
-    new Transition("q2", (input_tape_1) => scan(input_tape_1, '1'), "accept")
+    new Transition("q0", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
+    new Transition("q0", "IT1", (memory_object) => scan(memory_object, '1'), "q1"),
+    new Transition("q0", "IT1", (memory_object) => scan(memory_object, '1'), "accept"),
+    new Transition("q1", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
+    new Transition("q1", "IT1", (memory_object) => scan(memory_object, '1'), "q2"),
+    new Transition("q2", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
+    new Transition("q2", "IT1", (memory_object) => scan(memory_object, '1'), "q1"),
+    new Transition("q2", "IT1", (memory_object) => scan(memory_object, '1'), "accept")
   ])
 
   // create states
@@ -89,7 +91,7 @@ function App() {
     if(initial_state_name) {
       const given_input_string = "0011"
       input_tape_1.initialize(given_input_string) // only do this if no tape 1d or tape 2d is declared
-      const machine = new Machine(states_map, initial_state_name, input_tape_1, null, memory_structures_map)
+      const machine = new Machine(states_map, initial_state_name, memory_objects)
       const result = machine.run(given_input_string)
       // console.log(result)
     }

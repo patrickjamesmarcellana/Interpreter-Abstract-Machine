@@ -7,11 +7,17 @@ class Timeline {
   }
 
   clone() {
-    return new Timeline(this.steps_list, this.is_accepted, this.is_dead)
+    return new Timeline(this.steps_list.map(step => step.clone()), this.is_accepted, this.is_dead)
+  }
+
+  destroy_timeline() {
+    for(let step of this.steps_list) {
+      step = null
+    }
   }
 
   add_step(step) {
-    this.steps_list.add(step)
+    this.steps_list.push(step)
   }
 
   get_last_step() {
