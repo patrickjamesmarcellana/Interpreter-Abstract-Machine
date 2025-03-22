@@ -23,6 +23,10 @@ class State {
   add_transition(transition) {
     this.transitions.push(transition)
   }
+
+  get_transitions() {
+    return this.transitions
+  }
 }
 
 export default State
