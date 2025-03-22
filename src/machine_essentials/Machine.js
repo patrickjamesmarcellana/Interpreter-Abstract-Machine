@@ -47,7 +47,7 @@ class Machine {
 
       for(const next_transition of next_transitions) {
         const variable = next_transition
-        console.log(variable.action)
+        console.log(variable.action(this.input_tape))
       }
 
 

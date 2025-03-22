@@ -39,15 +39,15 @@ function App() {
 
   // create transitions
   const machine_transitions = useMemo(() => [
-    new Transition("q0", () => scan(input_tape_1, '0'), "q0"),
-    new Transition("q0", () => scan(input_tape_1, '1'), "q1"),
-    new Transition("q0", () => scan(input_tape_1, '1'), "accept"),
-    new Transition("q1", () => scan(input_tape_1, '0'), "q0"),
-    new Transition("q1", () => scan(input_tape_1, '1'), "q2"),
-    new Transition("q2", () => scan(input_tape_1, '0'), "q0"),
-    new Transition("q2", () => scan(input_tape_1, '1'), "q1"),
-    new Transition("q2", () => scan(input_tape_1, '1'), "accept")
-  ], [input_tape_1])
+    new Transition("q0", (input_tape_1) => scan(input_tape_1, '0'), "q0"),
+    new Transition("q0", (input_tape_1) => scan(input_tape_1, '1'), "q1"),
+    new Transition("q0", (input_tape_1) => scan(input_tape_1, '1'), "accept"),
+    new Transition("q1", (input_tape_1) => scan(input_tape_1, '0'), "q0"),
+    new Transition("q1", (input_tape_1) => scan(input_tape_1, '1'), "q2"),
+    new Transition("q2", (input_tape_1) => scan(input_tape_1, '0'), "q0"),
+    new Transition("q2", (input_tape_1) => scan(input_tape_1, '1'), "q1"),
+    new Transition("q2", (input_tape_1) => scan(input_tape_1, '1'), "accept")
+  ])
 
   // create states
   const { states_map, initial_state } = useMemo(() => {
@@ -88,6 +88,7 @@ function App() {
   useEffect(() => {
     if(initial_state_name) {
       const given_input_string = "0011"
+      input_tape_1.initialize(given_input_string) // only do this if no tape 1d or tape 2d is declared
       const machine = new Machine(states_map, initial_state_name, input_tape_1, null, memory_structures_map)
       const result = machine.run(given_input_string)
       // console.log(result)
