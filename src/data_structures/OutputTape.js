@@ -1,11 +1,5 @@
 class OutputTape {
-  constructor(name) {
-    this.name = name
-    this.tape = []
-    this.blank_symbol = '#'
-  }
-
-  constructor(name, tape) {
+  constructor(name, tape = []) {
     this.name = name
     this.tape = tape
     this.blank_symbol = '#'

@@ -1,20 +1,11 @@
 class Tape2D {
-  constructor(name, is_input_tape) {
+  constructor(name, head = this.get_key(0, 0), tape = new Map(), is_input_tape) {
     this.name = name
     this.head = this.get_key(0, 0)
     this.tape = new Map()
     this.blank_symbol = '#'
     this.is_input_tape = is_input_tape
-
-    this.initialize()
-  }
-
-  constructor(name, head, tape, is_input_tape) {
-    this.name = name
-    this.head = head // head must be in string format
-    this.tape = tape
-    this.blank_symbol = '#'
-    this.is_input_tape = is_input_tape
+    // this.initialize()
   }
 
   get_key(x, y) {

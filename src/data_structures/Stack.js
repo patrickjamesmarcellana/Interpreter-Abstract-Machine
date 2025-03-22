@@ -1,10 +1,5 @@
 class Stack {
-  constructor(name) {
-    this.items = []
-    this.name = name
-  }
-
-  constructor(name, items) {
+  constructor(name, items = []) {
     this.items = items
     this.name = name
   }

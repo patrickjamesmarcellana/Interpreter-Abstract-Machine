@@ -1,14 +1,8 @@
 class Queue {
-  constructor(name) {
-    this.items = []
-    this.name = name
-  }
-
-  constructor(name, items) {
+  constructor(name, items = []) {
     this.items = items
     this.name = name
   }
-
 
   write(write_symbol) {
     this.items.push(write_symbol)
