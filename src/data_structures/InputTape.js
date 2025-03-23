@@ -64,6 +64,22 @@ class InputTape {
     console.log(`Head of input tape ${this.name}: ${this.head}`)
   }
 
+  get_name() {
+    return this.name
+  }
+
+  get_content() {
+    return this.tape
+  }
+
+  get_type() {
+    return "Input Tape"
+  }
+
+  get_head() {
+    return this.head
+  }
+
   is_complete() {
     if(this.head === this.tape.length - 1) {
       console.log(`Input tape ${this.name} complete`)

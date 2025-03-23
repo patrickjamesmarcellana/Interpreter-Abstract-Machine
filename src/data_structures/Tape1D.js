@@ -85,6 +85,22 @@ class Tape1D {
   print_head() {
     console.log(`Head of the 1d tape ${this.name}: ${this.head}`)
   }
+
+  get_name() {
+    return this.name
+  }
+
+  get_content() {
+    return this.tape
+  }
+
+  get_head() {
+    return this.head
+  }
+
+  get_type() {
+    return "1D Tape"
+  }
 }
 
 export default Tape1D

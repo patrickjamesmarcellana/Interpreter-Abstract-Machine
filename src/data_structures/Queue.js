@@ -51,6 +51,18 @@ class Queue {
   log() {
     console.log(`Queue ${this.name} content: ${this.items.join("-->")}`)
   }
+
+  get_name() {
+    return this.name
+  }
+
+  get_content() {
+    return this.items.join("-->")
+  }
+
+  get_type() {
+    return "Queue"
+  }
 }
 
 export default Queue

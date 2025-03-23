@@ -35,9 +35,38 @@ function MachineSimulator({ machine }) {
         Run
       </button>
       <div
-        id="timelines-display"
+        id="timelines_display"
         className="">
-        {
+        {curr_timelines !== false &&
+          curr_timelines.map((timeline, index) => (
+            <div key={index}>
+              <div
+                id="timeline_state">
+                  Timeline State: {timeline.is_accepted ? "Accepted" : timeline.is_dead ? "Dead" : "Running"}
+              </div>
+
+              <div
+                id="current_step_details">
+                  <div
+                    id="current_step_state">
+                      Current State Name: {timeline.steps_list[timeline.steps_list.length - 1].curr_state.name}
+                  </div>
+                  <div
+                    id="current_memory_objects">
+                      {Array.from(timeline.steps_list[timeline.steps_list.length - 1].memory_objects.get_map()).map(([key, memory_object]) => (
+                        <div key={key}>
+                          {(memory_object.get_type() === "Input Tape" | "1D Tape" | "2D Tape") &&
+                            <div id="tape_head">
+                              Tape Head: {memory_object.get_head()}
+                            </div>
+                          }
+                          {memory_object.get_name()} : {memory_object.get_content()}
+                        </div>
+                      ))}
+                  </div>
+              </div> <br/>
+            </div>
+          ))
           
         }
         

@@ -17,6 +17,18 @@ class OutputTape {
   print_tape() {
     console.log(`Output tape ${this.name} content: ${this.tape}`)
   }
+
+  get_name() {
+    return this.name
+  }
+
+  get_content() {
+    return this.tape
+  }
+
+  get_type() {
+    return "Output Tape"
+  }
 }
 
 export default OutputTape

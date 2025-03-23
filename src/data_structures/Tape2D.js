@@ -161,6 +161,22 @@ class Tape2D {
   print_head() {
     console.log(`Head of the 2d tape ${this.name}: ${this.head}`)
   }
+
+  get_name() {
+    return this.name
+  }
+
+  get_content() {
+    return this.tape
+  }
+
+  get_head() {
+    return this.head
+  }
+
+  get_type() {
+    return "2D Tape"
+  }
 }
 
 export default Tape2D

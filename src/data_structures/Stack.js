@@ -50,6 +50,18 @@ class Stack {
   log() {
     console.log(`Content of stack ${this.name}: ${this.items}`)
   }
+
+  get_name() {
+    return this.name
+  }
+
+  get_content() {
+    return this.items
+  }
+
+  get_type() {
+    return "Stack"
+  }
 }
 
 export default Stack
