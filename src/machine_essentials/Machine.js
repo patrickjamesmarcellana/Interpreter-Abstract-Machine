@@ -21,6 +21,10 @@ class Machine {
     this.timelines.push(first_timeline)
   }
 
+  get_current_timelines() {
+    return this.timelines
+  }
+
   run() {
     while(this.timelines.length > 0 && this.accepted_timelines === 0 && this.rejected_timelines === 0) {
       this.step()

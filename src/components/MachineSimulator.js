@@ -1,11 +1,14 @@
+import { useState } from 'react'
+
 function MachineSimulator({ machine }) {
+  const [curr_timelines, set_curr_timelines] = useState(machine.get_current_timelines())
 
   const handle_step_button_press = (event) => {
     event.preventDefault()
     if(!machine) {
       console.error("Machine not initialized yet")
     }
-    const current_timelines = machine.step()
+    set_curr_timelines(machine.step())
   }
   
   const handle_run_button_press = (event) => {
@@ -31,6 +34,15 @@ function MachineSimulator({ machine }) {
         title="Run">
         Run
       </button>
+      <div
+        id="timelines-display"
+        className="">
+        {
+          
+        }
+        
+
+      </div>
     </div>
   )
 }
