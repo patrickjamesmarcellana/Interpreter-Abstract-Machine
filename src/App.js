@@ -21,6 +21,7 @@ function App() {
   const [machine_specs, set_machine_specs] = useState("")
   const [initial_state_name, set_initial_state_name] = useState("")
   const [input_string, set_input_string] = useState("")
+  const [is_machine_ready, set_is_machine_ready] = useState(false)
 
   // create memory objects
   const input_tape_1 =  new InputTape("IT1") // automatically create an input tape if no Tape1D or Tape2D was declared
@@ -37,8 +38,14 @@ function App() {
     return [...unique_state_names]
   }
 
+  function parse_machine_specs() {
+    set_is_machine_ready(true)
+  }
+
   // parse machine specs
-  // parse_machine_specs()
+  useEffect(() => {
+    parse_machine_specs()
+  })
 
   // create transitions
   const machine_transitions = useMemo(() => [
@@ -102,7 +109,7 @@ function App() {
   return (
     <div>
       <MachineInputBox machine_specs={machine_specs} set_machine_specs={set_machine_specs}/>
-      <StringInputBox input_string={input_string} set_input_string={set_input_string}/>
+      <StringInputBox input_string={input_string} set_input_string={set_input_string} is_machine_ready={is_machine_ready}/>
       {/* <MachineSimulator/> */}
     </div>
   );
