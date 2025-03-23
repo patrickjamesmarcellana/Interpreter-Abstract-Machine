@@ -111,7 +111,8 @@ function App() {
   }, [states_map, initial_state_name, memory_objects])
 
   return (
-    <div>
+    <div 
+      className="mt-[20px] ml-[20px]">
       <MachineInputBox machine_specs={machine_specs} set_machine_specs={set_machine_specs}/>
       { is_machine_ready && 
         <StringInputBox input_string={input_string} set_input_string={set_input_string} set_is_input_string_ready={set_is_input_string_ready} is_machine_ready={is_machine_ready}/>
