@@ -1,7 +1,21 @@
-function MachineSimulator() {
+function MachineSimulator({ machine }) {
+
+  const handle_step_button_press = (event) => {
+    event.preventDefault()
+    if(!machine) {
+      console.error("Machine not initialized yet")
+    }
+    machine.step()
+  }
+
   return (
     <div>
-
+      <button 
+        onClick={handle_step_button_press}
+        title="Step"
+      >
+        Step
+      </button>
     </div>
   )
 }

@@ -10,22 +10,21 @@ class Machine {
     this.accepted_timelines = 0
     this.rejected_timelines = 0
     this.memory_objects = memory_objects
-    this.timeline_to_display = timeline_to_display
+
+    this.initialize()
   }
 
-  run(input) {
-
+  initialize() {
     const initial_state = this.states_map.get(this.initial_state_name)
     const first_step = new Step(initial_state, this.memory_objects, false, false)
     const first_timeline = new Timeline([first_step], false, false)
     this.timelines.push(first_timeline)
+  }
 
+  run() {
     while(this.timelines.length > 0 && this.accepted_timelines === 0 && this.rejected_timelines === 0) {
       this.step()
-      // check if there is accepted
-      // check if there is dead
-      // renew timelines list
-      break
+      // add mediator here
     }
 
     if(this.accepted_timelines > 0) {
@@ -39,6 +38,10 @@ class Machine {
   }
 
   step() {
+    if(this.timelines.length <= 0) {
+      return false
+    }
+
     let new_timelines = []
     for(const timeline of this.timelines) {
       const curr_step = timeline.get_last_step()
@@ -62,11 +65,9 @@ class Machine {
           if(new_state.is_accept_state()) {
             new_timeline.set_is_accepted()
             this.accepted_timelines += 1
-            this.timeline_to_display = new_timeline
           } else if(new_state.is_reject_state()) {
             new_timeline.set_is_rejected()
             this.rejected_timelines += 1
-            this.timeline_to_display = new_timeline
           }
 
           new_timelines.push(new_timeline)
@@ -76,6 +77,8 @@ class Machine {
 
     this.reset_timelines()
     this.timelines = new_timelines
+    console.log(this.timelines)
+    return this.timelines
   }
 
   reset_timelines() {

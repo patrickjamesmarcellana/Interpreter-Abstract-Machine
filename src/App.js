@@ -24,12 +24,21 @@ function App() {
   const [input_string, set_input_string] = useState("")
   const [is_machine_ready, set_is_machine_ready] = useState(false)
   const [is_input_string_ready, set_is_input_string_ready] = useState(false)
+  const [machine, set_machine] = useState(null)
 
   // create memory objects
-  const input_tape_1 =  new InputTape("IT1") // automatically create an input tape if no Tape1D or Tape2D was declared
-  const memory_objects = new MemoryObjects()
-  memory_objects.upsert("IT1", input_tape_1)
-
+  const input_tape_1 = useMemo(() => {
+    const tape = new InputTape("IT1")
+    tape.initialize(input_string)
+    return tape
+  }, [input_string]) // automatically create an input tape if no Tape1D or Tape2D was declared
+  
+  const memory_objects = useMemo(() => {
+    const mem_objects = new MemoryObjects()
+    mem_objects.upsert("IT1", input_tape_1)
+    return mem_objects
+  }, [input_tape_1])
+  
   // function definitions
   function get_unique_state_names(transitions) {
     const unique_state_names = new Set()
@@ -47,7 +56,7 @@ function App() {
   // parse machine specs
   useEffect(() => {
     parse_machine_specs()
-  })
+  }, [])
 
   // create transitions
   const machine_transitions = useMemo(() => [
@@ -59,7 +68,7 @@ function App() {
     new Transition("q2", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
     new Transition("q2", "IT1", (memory_object) => scan(memory_object, '1'), "q1"),
     new Transition("q2", "IT1", (memory_object) => scan(memory_object, '1'), "accept")
-  ])
+  ], [])
 
   // create states
   const { states_map, initial_state } = useMemo(() => {
@@ -79,42 +88,37 @@ function App() {
       }
     })
 
-    return { states_map, initial_state }
-  }, [machine_transitions])
-
-  // set initial state name
-  useEffect(() => {
-    set_initial_state_name(initial_state)
-  }, [initial_state])
-
-  // set destination states for each transition and add each transition to their respective source states
-  useEffect(() => {
+    // set destination states for each transition and add each transition to their respective source states
     for(let transition of machine_transitions) {
       transition.set_destination_state(states_map.get(transition.destination_state_name))
       const source_state = states_map.get(transition.source_state_name)
       source_state.add_transition(transition)
     }
-  }, [machine_transitions, states_map])
+
+    return { states_map, initial_state }
+  }, [machine_transitions])
+
+  // set initial state name
+  useEffect(() => {
+    if(initial_state_name !== initial_state) {
+      set_initial_state_name(initial_state)
+    }
+  }, [initial_state, initial_state_name])
 
   // create machine and run it given input string
   useEffect(() => {
-    if(initial_state_name) {
-      input_tape_1.initialize(input_string) // only do this if no tape 1d or tape 2d is declared
-      const machine = new Machine(states_map, initial_state_name, memory_objects)
-      const result = machine.run(input_string)
-      console.log(result)
-    }
-  })
-  
-  
+    set_machine(new Machine(states_map, initial_state_name, memory_objects))
+  }, [states_map, initial_state_name, memory_objects])
+
+
   return (
     <div>
       <MachineInputBox machine_specs={machine_specs} set_machine_specs={set_machine_specs}/>
       { is_machine_ready && 
         <StringInputBox input_string={input_string} set_input_string={set_input_string} set_is_input_string_ready={set_is_input_string_ready} is_machine_ready={is_machine_ready}/>
       }
-      { is_input_string_ready && 
-        <MachineSimulator/>
+      { is_input_string_ready && machine &&
+        <MachineSimulator machine={machine}/>
       }
     </div>
   );
