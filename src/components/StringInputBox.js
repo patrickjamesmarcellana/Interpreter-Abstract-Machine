@@ -1,7 +1,8 @@
-function StringInputBox({ input_string, set_input_string, is_machine_ready }) {
+function StringInputBox({ input_string, set_input_string, set_is_input_string_ready, is_machine_ready }) {
   const handle_string_input_submission = (event) => {
     event.preventDefault()
     console.log(`String input submitted. Content: ${input_string}`)
+    set_is_input_string_ready(true)
     // start machine simulation
   }
 
