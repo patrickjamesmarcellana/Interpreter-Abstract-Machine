@@ -110,7 +110,6 @@ function App() {
     set_machine(new Machine(states_map, initial_state_name, memory_objects))
   }, [states_map, initial_state_name, memory_objects])
 
-
   return (
     <div>
       <MachineInputBox machine_specs={machine_specs} set_machine_specs={set_machine_specs}/>

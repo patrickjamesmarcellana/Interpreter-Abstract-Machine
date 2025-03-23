@@ -32,7 +32,7 @@ class Machine {
       return "accept"
     } 
 
-    if(this.rejected_timelines > 0) {
+    if(this.rejected_timelines > 0 || (this.accepted_timelines <= 0 && this.timelines.length <= 0)) {
       return "reject"
     }
   }
