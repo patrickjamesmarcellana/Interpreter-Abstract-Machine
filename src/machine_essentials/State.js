@@ -27,6 +27,14 @@ class State {
   get_transitions() {
     return this.transitions
   }
+
+  is_accept_state() {
+    return this.is_accept
+  }
+
+  is_reject_state() {
+    return this.is_reject
+  }
 }
 
 export default State

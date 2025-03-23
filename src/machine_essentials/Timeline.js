@@ -23,6 +23,14 @@ class Timeline {
   get_last_step() {
     return this.steps_list.at(-1)
   }
+
+  set_is_accepted() {
+    this.is_accepted = true
+  }
+
+  set_is_dead() {
+    this.is_dead = true
+  }
 }
 
 export default Timeline

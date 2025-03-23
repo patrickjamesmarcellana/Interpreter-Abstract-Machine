@@ -10,7 +10,7 @@ import Tape1D from "./data_structures/Tape1D"
 import Tape2D from "./data_structures/Tape2D"
 import MemoryObjects from "./data_structures/MemoryObjects"
 
-import TransitionsTester from './components/TransitionsTester';
+import StringInputBox from './components/StringInputBox';
 import State from './machine_essentials/State';
 import Transition from './machine_essentials/Transition';
 import Machine from './machine_essentials/Machine';
@@ -20,6 +20,7 @@ function App() {
   // state variables
   const [machine_specs, set_machine_specs] = useState("")
   const [initial_state_name, set_initial_state_name] = useState("")
+  const [input_string, set_input_string] = useState("")
 
   // create memory objects
   const input_tape_1 =  new InputTape("IT1") // automatically create an input tape if no Tape1D or Tape2D was declared
@@ -89,11 +90,11 @@ function App() {
   // create machine and run it given input string
   useEffect(() => {
     if(initial_state_name) {
-      const given_input_string = "0011"
+      const given_input_string = "101"
       input_tape_1.initialize(given_input_string) // only do this if no tape 1d or tape 2d is declared
       const machine = new Machine(states_map, initial_state_name, memory_objects)
       const result = machine.run(given_input_string)
-      // console.log(result)
+      console.log(result)
     }
   })
   
@@ -101,7 +102,8 @@ function App() {
   return (
     <div>
       <MachineInputBox machine_specs={machine_specs} set_machine_specs={set_machine_specs}/>
-      <TransitionsTester/>
+      <StringInputBox input_string={input_string} set_input_string={set_input_string}/>
+      {/* <MachineSimulator/> */}
     </div>
   );
 }
