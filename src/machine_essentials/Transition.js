@@ -11,6 +11,7 @@ class Transition {
     this.memory_object_name = memory_object_name
     this.action = action
     this.destination_state_name = destination_state_name
+    this.destination_state = null
   }
 
   set_destination_state(destination_state) {

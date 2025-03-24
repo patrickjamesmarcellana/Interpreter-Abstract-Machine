@@ -63,6 +63,12 @@ function App() {
     return transitions
   }, [])
 
+  // states map
+  let states_map = useMemo(() => {
+    let states = new Map()
+    return states
+  }, [])
+
   // function definitions
   function get_unique_state_names(transitions) {
     const unique_state_names = new Set()
@@ -78,6 +84,7 @@ function App() {
       const section_lines = separate_sections(machine_specs)
       create_memory_objects(section_lines.data_section_lines)
       create_transitions(section_lines.logic_section_lines)
+      create_states()
     }
 
     // set_is_machine_ready(true)
@@ -152,7 +159,6 @@ function App() {
       const state_command_split = line.split("] ")
       const command_line = state_command_split[1]
       const command_memory_transitions = extract_command_name_and_memory_name(command_line)
-      
 
       const source_state_name = state_command_split[0] // Use in Transition
       const command = command_map.get(command_memory_transitions.command) // Use in Transition
@@ -238,6 +244,42 @@ function App() {
     return { read_symbol, write_symbol, destination_state_name }
   }
 
+  function create_states() {
+    states_map.clear()
+
+    const unique_state_names = get_unique_state_names(machine_transitions)
+    let initial_state = ""
+
+    unique_state_names.forEach((state_name, index) => {
+      const is_initial = index === 0
+      const is_accept = state_name === "accept"
+      const is_reject = state_name === "reject"
+
+      states_map.set(state_name, new State(state_name, is_initial, is_accept, is_reject))
+
+      if(is_initial) {
+        initial_state = state_name
+      }
+    })
+
+    // set destination states for each transition and add each transition to their respective source states
+    for(let transition of machine_transitions) {
+      transition.set_destination_state(states_map.get(transition.destination_state_name))
+      const source_state = states_map.get(transition.source_state_name)
+      source_state.add_transition(transition)
+    }
+
+    // set initial state name
+    set_initial_state_name(initial_state)
+
+    console.log(states_map)
+    console.log(`Initial State: ${initial_state_name}`)
+  }
+
+  function create_machine() {
+
+  }
+
   // // create memory objects
   // const input_tape_1 = useMemo(() => {
   //   const tape = new InputTape("IT1") 
@@ -270,39 +312,39 @@ function App() {
   // ], [])
 
   // create states
-  const { states_map, initial_state } = useMemo(() => {
-    const unique_state_names = get_unique_state_names(machine_transitions)
-    const states_map = new Map()
-    let initial_state = ""
+  // const { states_map, initial_state } = useMemo(() => {
+  //   const unique_state_names = get_unique_state_names(machine_transitions)
+  //   const states_map = new Map()
+  //   let initial_state = ""
 
-    unique_state_names.forEach((state_name, index) => {
-      const is_initial = index === 0
-      const is_accept = state_name === "accept"
-      const is_reject = state_name === "reject"
+  //   unique_state_names.forEach((state_name, index) => {
+  //     const is_initial = index === 0
+  //     const is_accept = state_name === "accept"
+  //     const is_reject = state_name === "reject"
 
-      states_map.set(state_name, new State(state_name, is_initial, is_accept, is_reject))
+  //     states_map.set(state_name, new State(state_name, is_initial, is_accept, is_reject))
 
-      if(is_initial) {
-        initial_state = state_name
-      }
-    })
+  //     if(is_initial) {
+  //       initial_state = state_name
+  //     }
+  //   })
 
-    // set destination states for each transition and add each transition to their respective source states
-    for(let transition of machine_transitions) {
-      transition.set_destination_state(states_map.get(transition.destination_state_name))
-      const source_state = states_map.get(transition.source_state_name)
-      source_state.add_transition(transition)
-    }
+  //   // set destination states for each transition and add each transition to their respective source states
+  //   for(let transition of machine_transitions) {
+  //     transition.set_destination_state(states_map.get(transition.destination_state_name))
+  //     const source_state = states_map.get(transition.source_state_name)
+  //     source_state.add_transition(transition)
+  //   }
 
-    return { states_map, initial_state }
-  }, [machine_transitions])
+  //   return { states_map, initial_state }
+  // }, [machine_transitions])
 
-  // set initial state name
-  useEffect(() => {
-    if(initial_state_name !== initial_state) {
-      set_initial_state_name(initial_state)
-    }
-  }, [initial_state, initial_state_name])
+  // // set initial state name
+  // useEffect(() => {
+  //   if(initial_state_name !== initial_state) {
+  //     set_initial_state_name(initial_state)
+  //   }
+  // }, [initial_state, initial_state_name])
 
   // create machine and run it given input string
   useEffect(() => {
