@@ -3,7 +3,7 @@ import Step from "./Step.js"
 import Timeline from "./Timeline.js"
 
 class Machine {
-  constructor(states_map, initial_state_name, memory_objects = new MemoryObjects(), timeline_to_display = null) {
+  constructor(states_map, initial_state_name, memory_objects = new MemoryObjects()) {
     this.states_map = states_map
     this.initial_state_name = initial_state_name
     this.timelines = []

@@ -20,11 +20,9 @@ import {scan, print, scan_right, scan_left, read, write, right, left, up, down} 
 function App() {
   // state variables
   const [machine_specs, set_machine_specs] = useState("")
-  const [initial_state_name, set_initial_state_name] = useState("")
   const [input_string, set_input_string] = useState("")
   const [is_machine_ready, set_is_machine_ready] = useState(false)
   const [is_input_string_ready, set_is_input_string_ready] = useState(false)
-  const [machine, set_machine] = useState(null)
   const [input_memory_object_name, set_input_memory_object_name] = useState("")
 
   // transition command map
@@ -68,6 +66,13 @@ function App() {
     let states = new Map()
     return states
   }, [])
+  let initial_state_name = ""
+
+  // machine instance
+  let machine = useMemo(() => {
+    let machine = null
+    return machine
+  }, [])
 
   // function definitions
   function get_unique_state_names(transitions) {
@@ -85,9 +90,9 @@ function App() {
       create_memory_objects(section_lines.data_section_lines)
       create_transitions(section_lines.logic_section_lines)
       create_states()
+      create_machine()
+      set_is_machine_ready(true)
     }
-
-    // set_is_machine_ready(true)
   }
 
   function separate_sections(machine_specs) {
@@ -248,7 +253,6 @@ function App() {
     states_map.clear()
 
     const unique_state_names = get_unique_state_names(machine_transitions)
-    let initial_state = ""
 
     unique_state_names.forEach((state_name, index) => {
       const is_initial = index === 0
@@ -258,7 +262,7 @@ function App() {
       states_map.set(state_name, new State(state_name, is_initial, is_accept, is_reject))
 
       if(is_initial) {
-        initial_state = state_name
+        initial_state_name = state_name
       }
     })
 
@@ -269,87 +273,14 @@ function App() {
       source_state.add_transition(transition)
     }
 
-    // set initial state name
-    set_initial_state_name(initial_state)
-
     console.log(states_map)
-    console.log(`Initial State: ${initial_state_name}`)
+    console.log(`Initial State Name: ${initial_state_name}`)
   }
 
   function create_machine() {
-
+    machine = new Machine(states_map, initial_state_name, memory_objects)
+    console.log(machine)
   }
-
-  // // create memory objects
-  // const input_tape_1 = useMemo(() => {
-  //   const tape = new InputTape("IT1") 
-  //   tape.initialize(input_string) // TODO!
-  //   return tape
-  // }, [input_string]) // automatically create an input tape if no Tape1D or Tape2D was declared
-  
-  // const memory_objects = useMemo(() => {
-  //   const mem_objects = new MemoryObjects()
-  //   mem_objects.upsert("IT1", input_tape_1)
-  //   return mem_objects
-  // }, [input_tape_1])
-  
-
-  // // parse machine specs
-  // useEffect(() => {
-  //   parse_machine_specs()
-  // }, [])
-
-  // create transitions
-  // const machine_transitions = useMemo(() => [
-  //   new Transition("q0", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
-  //   new Transition("q0", "IT1", (memory_object) => scan(memory_object, '1'), "q1"),
-  //   new Transition("q0", "IT1", (memory_object) => scan(memory_object, '1'), "accept"),
-  //   new Transition("q1", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
-  //   new Transition("q1", "IT1", (memory_object) => scan(memory_object, '1'), "q2"),
-  //   new Transition("q2", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
-  //   new Transition("q2", "IT1", (memory_object) => scan(memory_object, '1'), "q1"),
-  //   new Transition("q2", "IT1", (memory_object) => scan(memory_object, '1'), "accept")
-  // ], [])
-
-  // create states
-  // const { states_map, initial_state } = useMemo(() => {
-  //   const unique_state_names = get_unique_state_names(machine_transitions)
-  //   const states_map = new Map()
-  //   let initial_state = ""
-
-  //   unique_state_names.forEach((state_name, index) => {
-  //     const is_initial = index === 0
-  //     const is_accept = state_name === "accept"
-  //     const is_reject = state_name === "reject"
-
-  //     states_map.set(state_name, new State(state_name, is_initial, is_accept, is_reject))
-
-  //     if(is_initial) {
-  //       initial_state = state_name
-  //     }
-  //   })
-
-  //   // set destination states for each transition and add each transition to their respective source states
-  //   for(let transition of machine_transitions) {
-  //     transition.set_destination_state(states_map.get(transition.destination_state_name))
-  //     const source_state = states_map.get(transition.source_state_name)
-  //     source_state.add_transition(transition)
-  //   }
-
-  //   return { states_map, initial_state }
-  // }, [machine_transitions])
-
-  // // set initial state name
-  // useEffect(() => {
-  //   if(initial_state_name !== initial_state) {
-  //     set_initial_state_name(initial_state)
-  //   }
-  // }, [initial_state, initial_state_name])
-
-  // create machine and run it given input string
-  useEffect(() => {
-    set_machine(new Machine(states_map, initial_state_name, memory_objects))
-  }, [states_map, initial_state_name, memory_objects])
 
   return (
     <div 
