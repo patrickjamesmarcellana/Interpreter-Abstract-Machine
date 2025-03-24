@@ -14,9 +14,14 @@ class Queue {
     return true
   }
 
-  read() {
+  read(read_symbol) {
     if(this.is_empty()) {
       console.log(`Queue ${this.name} is empty`)
+      return false
+    }
+
+    if(this.items.at(0) != read_symbol) {
+      console.log(`Incorrect read symbol ${read_symbol} when tried to read Queue ${this.name}. In front of the queue currently is ${this.items.at(0)}`)
       return false
     }
 

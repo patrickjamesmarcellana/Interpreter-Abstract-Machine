@@ -57,6 +57,12 @@ function App() {
     return mem_objects
   }, [])
 
+  // machine transitions
+  let machine_transitions = useMemo(() => {
+    let transitions = []
+    return transitions
+  }, [])
+
   // function definitions
   function get_unique_state_names(transitions) {
     const unique_state_names = new Set()
@@ -71,6 +77,7 @@ function App() {
     if(machine_specs !== "") {
       const section_lines = separate_sections(machine_specs)
       create_memory_objects(section_lines.data_section_lines)
+      create_transitions(section_lines.logic_section_lines)
     }
 
     // set_is_machine_ready(true)
@@ -128,9 +135,107 @@ function App() {
         }
       }
     } else {
-      const input_tape = new InputTape("IT")
-      memory_objects.upsert("IT", input_tape)
+      const input_tape_name = "IT"
+      const input_tape = new InputTape(input_tape_name)
+      set_input_memory_object_name(input_tape_name)
+      memory_objects.upsert(input_tape_name, input_tape)
     }
+  }
+
+  function create_transitions(logic_section_lines) {
+    machine_transitions = []
+    for(const line of logic_section_lines) {
+      if(line === "") {
+        continue
+      }
+
+      const state_command_split = line.split("] ")
+      const command_line = state_command_split[1]
+      const command_memory_transitions = extract_command_name_and_memory_name(command_line)
+      
+
+      const source_state_name = state_command_split[0] // Use in Transition
+      const command = command_map.get(command_memory_transitions.command) // Use in Transition
+      const memory_object_name_to_use = command_memory_transitions.memory_object_name_to_use // Use in Transition
+      const transitions_arr = command_memory_transitions.transitions_line.split(", ")
+
+      if(!command) {
+        console.log("Command not found in command map")
+        return
+      }
+
+      for(const transition_line of transitions_arr) {
+        const transition_details = parse_transition(command_memory_transitions.command, transition_line)
+        const read_symbol = transition_details.read_symbol
+        const write_symbol = transition_details.write_symbol
+        const destination_state_name = transition_details.destination_state_name
+        
+        if(write_symbol === "") {
+          const transition = new Transition(source_state_name, memory_object_name_to_use, (memory_object) => command(memory_object, read_symbol), destination_state_name)
+          machine_transitions.push(transition)
+        } else {
+          const transition = new Transition(source_state_name, memory_object_name_to_use, (memory_object) => command(memory_object, read_symbol, write_symbol), destination_state_name)
+          machine_transitions.push(transition)
+        }
+      }
+    }
+    console.log(machine_transitions)
+  }
+
+  function extract_command_name_and_memory_name(command_line) {
+    let command = ""
+    let memory_object_name_to_use = ""
+    let transitions_line = ""
+
+    const commands_with_param = ["READ", "WRITE", "LEFT", "RIGHT", "UP", "DOWN"]
+    const commands_without_param = ["SCAN RIGHT", "SCAN LEFT", "SCAN"] // excluded special PRINT
+
+    if(commands_with_param.some(cmd => command_line.startsWith(cmd))) {
+        const match = command_line.match(/^(\w+)\((\w+)\)/)
+        if(match) {
+          command = match[1]
+          memory_object_name_to_use = match[2]
+          transitions_line = command_line.replace(match[0], "").trim()
+        }
+    } else if(commands_without_param.some(cmd => command_line.startsWith(cmd))) {
+        const match = command_line.match(/^(SCAN RIGHT|SCAN LEFT|SCAN)\b/)
+        if(match) {
+          command = match[1]
+          memory_object_name_to_use = "IT"
+          transitions_line = command_line.replace(command, "").trim()
+        }
+    } else if(command_line.startsWith("PRINT")) {
+        command = "PRINT"
+        memory_object_name_to_use = "OT"
+        if(!memory_objects.get_map().has(memory_object_name_to_use)) {
+          const output_tape = new OutputTape(memory_object_name_to_use)
+          memory_objects.upsert(memory_object_name_to_use, output_tape)
+        }
+        transitions_line = command_line.replace(command, "").trim()
+    }
+
+    return { command, memory_object_name_to_use, transitions_line }
+  }
+
+  function parse_transition(command, transition_line) {
+    const commands_with_two_symbols = ["LEFT", "RIGHT", "UP", "DOWN"]
+    const commands_with_one_symbol = ["READ", "WRITE", "SCAN RIGHT", "SCAN LEFT", "SCAN", "PRINT"] // excluded special PRINT
+    let read_symbol = ""
+    let write_symbol = ""
+    let destination_state_name = ""
+
+    if(commands_with_one_symbol.includes(command)) {
+      [read_symbol, destination_state_name] = transition_line.slice(1, -1).split(",")
+    } else if(commands_with_two_symbols.includes(command)) {
+      const match = transition_line.match(/\(([^/,]+)\/([^/,]+),([^/)]+)\)/)
+      if(match) {
+        read_symbol = match[1]
+        write_symbol = match[2]
+        destination_state_name = match[3]
+      }
+    }
+
+    return { read_symbol, write_symbol, destination_state_name }
   }
 
   // // create memory objects
@@ -147,23 +252,22 @@ function App() {
   // }, [input_tape_1])
   
 
-
   // // parse machine specs
   // useEffect(() => {
   //   parse_machine_specs()
   // }, [])
 
   // create transitions
-  const machine_transitions = useMemo(() => [
-    new Transition("q0", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
-    new Transition("q0", "IT1", (memory_object) => scan(memory_object, '1'), "q1"),
-    new Transition("q0", "IT1", (memory_object) => scan(memory_object, '1'), "accept"),
-    new Transition("q1", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
-    new Transition("q1", "IT1", (memory_object) => scan(memory_object, '1'), "q2"),
-    new Transition("q2", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
-    new Transition("q2", "IT1", (memory_object) => scan(memory_object, '1'), "q1"),
-    new Transition("q2", "IT1", (memory_object) => scan(memory_object, '1'), "accept")
-  ], [])
+  // const machine_transitions = useMemo(() => [
+  //   new Transition("q0", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
+  //   new Transition("q0", "IT1", (memory_object) => scan(memory_object, '1'), "q1"),
+  //   new Transition("q0", "IT1", (memory_object) => scan(memory_object, '1'), "accept"),
+  //   new Transition("q1", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
+  //   new Transition("q1", "IT1", (memory_object) => scan(memory_object, '1'), "q2"),
+  //   new Transition("q2", "IT1", (memory_object) => scan(memory_object, '0'), "q0"),
+  //   new Transition("q2", "IT1", (memory_object) => scan(memory_object, '1'), "q1"),
+  //   new Transition("q2", "IT1", (memory_object) => scan(memory_object, '1'), "accept")
+  // ], [])
 
   // create states
   const { states_map, initial_state } = useMemo(() => {

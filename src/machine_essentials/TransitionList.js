@@ -45,11 +45,12 @@ export function scan_left(input_tape, scan_symbol) {
 /**
  * 
  * @param {Stack | Queue} memory_object 
+ * @param {char} read_symbol
  * @returns true if the read operation was successful
  *          false if otherwise
  */
-export function read(memory_object) {
-  return memory_object.read()
+export function read(memory_object, read_symbol) {
+  return memory_object.read(read_symbol)
 }
 
 /**

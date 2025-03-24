@@ -14,9 +14,14 @@ class Stack {
     return true
   }
 
-  read() {
+  read(read_symbol) {
     if(this.is_empty()) {
       console.log(`Stack ${this.name} is empty`)
+      return false
+    }
+
+    if(this.items.at(this.items.length - 1) != read_symbol) {
+      console.log(`Incorrect read symbol ${read_symbol} when tried to read stack ${this.name}. Top of the stack currently is ${this.items.at(this.items.length - 1)}`)
       return false
     }
 
