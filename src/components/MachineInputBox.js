@@ -1,9 +1,9 @@
-function MachineInputBox({ machine_specs, set_machine_specs }) {
+function MachineInputBox({ machine_specs, set_machine_specs, parse_machine_specs }) {
 
   const handle_machine_submission = (event) => {
     event.preventDefault()
-    alert(`Form successfully submitted. Content: ${machine_specs}`)
-    // parse machine specs
+    // alert(`Form successfully submitted. Content: ${machine_specs}`)
+    parse_machine_specs()
   }
 
   return (
