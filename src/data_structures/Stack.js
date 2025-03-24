@@ -62,7 +62,7 @@ class Stack {
 
   get_content() {
     this.log()
-    return this.items
+    return this.items.join(" ")
   }
 
   get_type() {

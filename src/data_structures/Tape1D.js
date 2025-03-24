@@ -9,16 +9,20 @@ class Tape1D {
   }
 
   clone() {
-    return Tape1D(this.name, this.head, this.tape, this.is_input_tape)
+    return new Tape1D(this.name, this.head, this.tape, this.is_input_tape)
   }
 
   set_as_input_tape() {
     this.is_input_tape = true
   }
 
-  initialize() {
+  initialize(true_input) {
     // initialize input here if is_input_tape = true
     this.tape.set(this.head, this.blank_symbol)
+    Array.from(true_input).forEach((char, index) => {
+      this.tape.set(index + 1, char)
+    })
+    this.tape.set(true_input.length + 1, this.blank_symbol)
   }
 
   right(read_symbol, write_symbol) {
@@ -98,7 +102,14 @@ class Tape1D {
   get_content() {
     this.print_tape()
     this.print_head()
-    return this.tape
+
+    const tape_in_array = [];
+
+    // convert the tape to an array by sorting the key indices
+    [...this.tape.keys()]
+      .sort((a, b) => a - b) 
+      .forEach(key => tape_in_array.push(this.tape.get(key)));
+    return tape_in_array.join(" ")
   }
 
   get_head() {

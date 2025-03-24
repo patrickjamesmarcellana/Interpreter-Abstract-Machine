@@ -24,7 +24,7 @@ class OutputTape {
 
   get_content() {
     this.print_tape()
-    return this.tape
+    return this.tape.join(" ")
   }
 
   get_type() {

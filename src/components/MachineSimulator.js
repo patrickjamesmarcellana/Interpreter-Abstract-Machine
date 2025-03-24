@@ -1,14 +1,26 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function MachineSimulator({ machine }) {
   const [curr_timelines, set_curr_timelines] = useState(machine.get_current_timelines())
+  const [has_steps, set_has_steps] = useState(true)
+
+  useEffect(() => {
+    set_curr_timelines(machine.get_current_timelines());
+  }, [machine])
 
   const handle_step_button_press = (event) => {
     event.preventDefault()
     if(!machine) {
       console.error("Machine not initialized yet")
     }
-    set_curr_timelines(machine.step())
+    const timelines = machine.step()
+    if(timelines.length > 0) {
+      set_curr_timelines(timelines)
+      set_has_steps(true)
+    } else {
+      set_curr_timelines(timelines)
+      set_has_steps(false)
+    }
   }
   
   const handle_run_button_press = (event) => {
@@ -23,8 +35,9 @@ function MachineSimulator({ machine }) {
   return (
     <div className="">
       <button 
-        className="rounded-lg py-3 px-6 bg-[#90EE90] mr-[5px]"
+        className={`rounded-lg py-3 px-6 bg-[#90EE90] mr-[5px] ${!has_steps ? "opacity-25 cursor-not-allowed" : "opacity-100"}`}
         onClick={handle_step_button_press}
+        disabled={!has_steps}
         title="Step">
         Step
       </button>
@@ -42,7 +55,7 @@ function MachineSimulator({ machine }) {
             <div key={index}>
               <div
                 id="timeline_state">
-                  Timeline State: {timeline.is_accepted ? "Accepted" : timeline.is_dead ? "Dead" : "Running"}
+                  Timeline {index + 1} State: {timeline.is_accepted ? "Accepted" : timeline.is_dead ? "Dead" : "Running"}
               </div>
 
               <div
@@ -55,12 +68,12 @@ function MachineSimulator({ machine }) {
                     id="current_memory_objects">
                       {Array.from(timeline.steps_list[timeline.steps_list.length - 1].memory_objects.get_map()).map(([key, memory_object]) => (
                         <div key={key}>
-                          {(memory_object.get_type() === "Input Tape" | "1D Tape" | "2D Tape") &&
+                          {(["Input Tape", "1D Tape", "2D Tape"].includes(memory_object.get_type())) &&
                             <div id="tape_head">
-                              Tape Head: {memory_object.get_head()}
+                              {memory_object.get_type()} {memory_object.get_name()} Tape Head: {memory_object.get_head()}
                             </div>
                           }
-                          {memory_object.get_name()} : {memory_object.get_content()}
+                          {memory_object.get_type()} {memory_object.get_name()} : {memory_object.get_content()}
                         </div>
                       ))}
                   </div>

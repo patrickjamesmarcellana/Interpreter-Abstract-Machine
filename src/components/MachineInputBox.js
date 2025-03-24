@@ -1,9 +1,8 @@
-function MachineInputBox({ machine_specs, set_machine_specs, parse_machine_specs }) {
+function MachineInputBox({ machine_specs, set_machine_specs, set_is_input_string_ready, set_is_machine_ready }) {
 
   const handle_machine_submission = (event) => {
     event.preventDefault()
-    // alert(`Form successfully submitted. Content: ${machine_specs}`)
-    parse_machine_specs()
+    set_is_machine_ready(true)
   }
 
   return (
@@ -21,7 +20,7 @@ function MachineInputBox({ machine_specs, set_machine_specs, parse_machine_specs
             name="machine_specs"
             required={true}
             placeholder="Enter machine specifications."
-            onChange={(e) => set_machine_specs(e.target.value)}
+            onChange={(e) => {set_machine_specs(e.target.value); set_is_input_string_ready(false)}}
           />
       </label>
       <br/>

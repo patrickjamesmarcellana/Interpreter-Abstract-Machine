@@ -23,7 +23,14 @@ function App() {
   const [input_string, set_input_string] = useState("")
   const [is_machine_ready, set_is_machine_ready] = useState(false)
   const [is_input_string_ready, set_is_input_string_ready] = useState(false)
-  const [input_memory_object_name, set_input_memory_object_name] = useState("")
+  const [is_input_tape_initialized, set_is_input_tape_initialized] = useState(false)
+  let [input_memory_object_name, set_input_memory_object_name] = useState("")
+
+  let [memory_objects, set_memory_objects] = useState(new MemoryObjects())
+  let [machine_transitions, set_machine_transitions] = useState([])
+  let [states_map, set_states_map] = useState(new Map()) 
+  let [initial_state_name, set_initial_state_name] = useState("")
+  let [machine, set_machine] = useState(null)
 
   // transition command map
   const command_map = new Map([
@@ -49,31 +56,6 @@ function App() {
     ["OUTPUT_TAPE", OutputTape]
   ])
 
-  // memory object map
-  let memory_objects = useMemo(() => {
-    const mem_objects = new MemoryObjects()
-    return mem_objects
-  }, [])
-
-  // machine transitions
-  let machine_transitions = useMemo(() => {
-    let transitions = []
-    return transitions
-  }, [])
-
-  // states map
-  let states_map = useMemo(() => {
-    let states = new Map()
-    return states
-  }, [])
-  let initial_state_name = ""
-
-  // machine instance
-  let machine = useMemo(() => {
-    let machine = null
-    return machine
-  }, [])
-
   // function definitions
   function get_unique_state_names(transitions) {
     const unique_state_names = new Set()
@@ -91,7 +73,6 @@ function App() {
       create_transitions(section_lines.logic_section_lines)
       create_states()
       create_machine()
-      set_is_machine_ready(true)
     }
   }
 
@@ -115,7 +96,7 @@ function App() {
   }
 
   function create_memory_objects(data_section_lines) {
-    memory_objects = new MemoryObjects()
+    memory_objects.get_map().clear()
     for(const line of data_section_lines) {
       if(line === "") {
         continue
@@ -278,18 +259,33 @@ function App() {
   }
 
   function create_machine() {
-    machine = new Machine(states_map, initial_state_name, memory_objects)
-    console.log(machine)
+    set_machine(new Machine(states_map, initial_state_name, memory_objects))
+    // console.log(machine)
   }
+
+  useEffect(() => {
+    if(is_input_string_ready && machine) {
+      machine.reset_memory(memory_objects)
+      machine.memory_objects.get_map().get(input_memory_object_name).initialize(input_string)
+      set_is_input_tape_initialized(true)
+    }
+  }, [is_input_string_ready, machine, input_string])
+
+  useEffect(() => {
+    if (machine) {
+      machine.initialize()
+      console.log("Machine has been set:", machine);
+    }
+  }, [machine]);
 
   return (
     <div 
       className="mt-[20px] ml-[20px]">
-      <MachineInputBox machine_specs={machine_specs} set_machine_specs={set_machine_specs} parse_machine_specs={parse_machine_specs}/>
-      { is_machine_ready && 
-        <StringInputBox input_string={input_string} set_input_string={set_input_string} set_is_input_string_ready={set_is_input_string_ready} is_machine_ready={is_machine_ready}/>
+      <MachineInputBox machine_specs={machine_specs} set_machine_specs={set_machine_specs} parse_machine_specs={parse_machine_specs} set_is_input_string_ready={set_is_input_string_ready} set_is_machine_ready={set_is_machine_ready}/>
+      { is_machine_ready &&
+        <StringInputBox input_string={input_string} set_input_string={set_input_string} set_is_input_string_ready={set_is_input_string_ready} is_machine_ready={is_machine_ready} parse_machine_specs={parse_machine_specs}/>
       }
-      { is_input_string_ready && machine &&
+      { machine && is_input_string_ready && is_input_tape_initialized &&
         <MachineSimulator machine={machine}/>
       }
     </div>

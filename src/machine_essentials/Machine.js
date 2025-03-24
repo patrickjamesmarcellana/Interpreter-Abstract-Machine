@@ -10,14 +10,19 @@ class Machine {
     this.accepted_timelines = 0
     this.rejected_timelines = 0
     this.memory_objects = memory_objects
+  }
 
-    this.initialize()
+  reset_memory(memory_objects) {
+    this.memory_objects = memory_objects;
   }
 
   initialize() {
     const initial_state = this.states_map.get(this.initial_state_name)
     const first_step = new Step(initial_state, this.memory_objects, false, false)
     const first_timeline = new Timeline([first_step], false, false)
+    this.accepted_timelines = 0
+    this.rejected_timelines = 0
+    this.timelines = []
     this.timelines.push(first_timeline)
   }
 
@@ -70,7 +75,7 @@ class Machine {
             new_timeline.set_is_accepted()
             this.accepted_timelines += 1
           } else if(new_state.is_reject_state()) {
-            new_timeline.set_is_rejected()
+            new_timeline.set_is_dead()
             this.rejected_timelines += 1
           }
 
@@ -94,24 +99,8 @@ class Machine {
     this.timelines = []
   }
 
-  check_accepted(new_state) {
-    if(new_state.is_accept_state()) {
-
-    }
- // // get existing timelines
-    // let existing_timelines = []
-    // for(const timeline of this.timelines) {
-    //   if(timeline.is_dead) {
-    //     continue
-    //   } else {
-    //     existing_timelines.push(timeline)
-    //   }
-    // }
-
-    // reset timelines 
-    // this.reset_timelines()
-
-    // "step" each existing timeline
+  get_initial_state_name() {
+    return this.initial_state_name
   }
 }
 

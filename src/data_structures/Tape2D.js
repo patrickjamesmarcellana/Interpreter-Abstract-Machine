@@ -24,9 +24,13 @@ class Tape2D {
     this.is_input_tape = true
   }
 
-  initialize() {
+  initialize(true_input) {
     // initialize input here if is_input_tape = true
     this.tape.set(this.head, this.blank_symbol)
+    Array.from(true_input).forEach((char, index) => {
+      this.tape.set(this.get_key(index + 1, 0), char)
+    })
+    this.tape.set(this.get_key(true_input.length + 1, 0), this.blank_symbol)
   }
 
   right(read_symbol, write_symbol) {
@@ -174,7 +178,29 @@ class Tape2D {
   get_content() {
     this.print_tape()
     this.print_head()
-    return this.tape
+    const coordinates = [...this.tape.keys()].map(key => key.split(",").map(Number))
+    // console.log("Coordinates: " + coordinates)
+    const xs = coordinates.map(([x, _]) => x)
+    // console.log("xs: " + xs)
+    const ys = coordinates.map(([_, y]) => y)
+    // console.log("ys: " + ys)
+
+    const min_x = Math.min(...xs), max_x = Math.max(...xs)
+    const min_y = Math.min(...ys), max_y = Math.max(...ys)
+
+    let tape = ""
+    for (let y = min_y; y <= max_y; y++) {
+      let row = "";
+      for (let x = min_x; x <= max_x; x++) {
+        if(!this.tape.has(this.get_key(x, y))) {
+          row += "# "
+        } else{
+          row += this.tape.get(this.get_key(x, y)) + " "
+        }
+      }
+      tape += row + "\n"
+    }
+    return tape
   }
 
   get_head() {
