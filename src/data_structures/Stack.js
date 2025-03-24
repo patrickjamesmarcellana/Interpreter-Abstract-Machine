@@ -56,6 +56,7 @@ class Stack {
   }
 
   get_content() {
+    this.log()
     return this.items
   }
 

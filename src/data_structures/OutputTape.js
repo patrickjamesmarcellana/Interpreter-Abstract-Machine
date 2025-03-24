@@ -23,6 +23,7 @@ class OutputTape {
   }
 
   get_content() {
+    this.print_tape()
     return this.tape
   }
 

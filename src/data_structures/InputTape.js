@@ -69,6 +69,8 @@ class InputTape {
   }
 
   get_content() {
+    this.print_tape()
+    this.print_head()
     return this.tape
   }
 

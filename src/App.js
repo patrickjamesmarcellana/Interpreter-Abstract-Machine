@@ -25,6 +25,7 @@ function App() {
   const [is_machine_ready, set_is_machine_ready] = useState(false)
   const [is_input_string_ready, set_is_input_string_ready] = useState(false)
   const [machine, set_machine] = useState(null)
+  const [input_memory_object_name, set_input_memory_object_name] = useState("")
 
   // transition command map
   const command_map = new Map([
@@ -50,6 +51,12 @@ function App() {
     ["OUTPUT_TAPE", OutputTape]
   ])
 
+  // memory object map
+  let memory_objects = useMemo(() => {
+    const mem_objects = new MemoryObjects()
+    return mem_objects
+  }, [])
+
   // function definitions
   function get_unique_state_names(transitions) {
     const unique_state_names = new Set()
@@ -63,8 +70,7 @@ function App() {
   function parse_machine_specs() {
     if(machine_specs !== "") {
       const section_lines = separate_sections(machine_specs)
-      console.log(section_lines.data_section_lines)
-      console.log(section_lines.logic_section_lines) 
+      create_memory_objects(section_lines.data_section_lines)
     }
 
     // set_is_machine_ready(true)
@@ -79,28 +85,66 @@ function App() {
     let logic_section_lines = []
 
     if(data_section_starting_index !== -1 && logic_section_starting_index !== -1) {
-      data_section_lines = lines.slice(data_section_starting_index, logic_section_starting_index)
+      data_section_lines = lines.slice(data_section_starting_index + 1, logic_section_starting_index)
     }
 
     if(logic_section_starting_index !== -1) {
-      logic_section_lines = lines.slice(logic_section_starting_index)
+      logic_section_lines = lines.slice(logic_section_starting_index + 1)
     }
 
     return { data_section_lines, logic_section_lines }
   }
 
-  // create memory objects
-  const input_tape_1 = useMemo(() => {
-    const tape = new InputTape("IT1")
-    tape.initialize(input_string)
-    return tape
-  }, [input_string]) // automatically create an input tape if no Tape1D or Tape2D was declared
+  function create_memory_objects(data_section_lines) {
+    memory_objects = new MemoryObjects()
+    for(const line of data_section_lines) {
+      if(line === "") {
+        continue
+      }
+      
+      const memory_object_and_name = line.split(" ")
+      const MemoryInstanceClass = memory_object_map.get(memory_object_and_name[0])
+      if(MemoryInstanceClass) {
+        const memory_object_instance = new MemoryInstanceClass(memory_object_and_name[1])
+        memory_objects.upsert(memory_object_and_name[1], memory_object_instance)
+      }
+    }
+
+    set_input_tape()
+    console.log(memory_objects)
+  }
+
+  function set_input_tape() {
+    const has_1D_tape = [...memory_objects.get_map().values()].some(value => value instanceof Tape1D)
+    const has_2D_tape = [...memory_objects.get_map().values()].some(value => value instanceof Tape2D)
+
+    if(has_1D_tape || has_2D_tape) {
+      for(const key of memory_objects.get_map().keys()) {
+        const value = memory_objects.get_map().get(key)
+        if(value instanceof Tape1D || value instanceof Tape2D) {
+          value.set_as_input_tape()
+          set_input_memory_object_name(key)
+          break
+        }
+      }
+    } else {
+      const input_tape = new InputTape("IT")
+      memory_objects.upsert("IT", input_tape)
+    }
+  }
+
+  // // create memory objects
+  // const input_tape_1 = useMemo(() => {
+  //   const tape = new InputTape("IT1") 
+  //   tape.initialize(input_string) // TODO!
+  //   return tape
+  // }, [input_string]) // automatically create an input tape if no Tape1D or Tape2D was declared
   
-  const memory_objects = useMemo(() => {
-    const mem_objects = new MemoryObjects()
-    mem_objects.upsert("IT1", input_tape_1)
-    return mem_objects
-  }, [input_tape_1])
+  // const memory_objects = useMemo(() => {
+  //   const mem_objects = new MemoryObjects()
+  //   mem_objects.upsert("IT1", input_tape_1)
+  //   return mem_objects
+  // }, [input_tape_1])
   
 
 

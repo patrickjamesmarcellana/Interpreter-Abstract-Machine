@@ -1,5 +1,5 @@
 class Tape1D {
-  constructor(name, head = 0, tape = new Map(), is_input_tape) {
+  constructor(name, head = 0, tape = new Map(), is_input_tape = false) {
     this.name = name
     this.head = head
     this.tape = tape
@@ -12,7 +12,12 @@ class Tape1D {
     return Tape1D(this.name, this.head, this.tape, this.is_input_tape)
   }
 
+  set_as_input_tape() {
+    this.is_input_tape = true
+  }
+
   initialize() {
+    // initialize input here if is_input_tape = true
     this.tape.set(this.head, this.blank_symbol)
   }
 
@@ -91,6 +96,8 @@ class Tape1D {
   }
 
   get_content() {
+    this.print_tape()
+    this.print_head()
     return this.tape
   }
 

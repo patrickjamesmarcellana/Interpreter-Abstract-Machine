@@ -57,6 +57,7 @@ class Queue {
   }
 
   get_content() {
+    this.log()
     return this.items.join("-->")
   }
 

@@ -1,5 +1,5 @@
 class Tape2D {
-  constructor(name, head = this.get_key(0, 0), tape = new Map(), is_input_tape) {
+  constructor(name, head = this.get_key(0, 0), tape = new Map(), is_input_tape = false) {
     this.name = name
     this.head = head
     this.tape =tape
@@ -20,7 +20,12 @@ class Tape2D {
     return str.split(",").map(Number);
   }
 
+  set_as_input_tape() {
+    this.is_input_tape = true
+  }
+
   initialize() {
+    // initialize input here if is_input_tape = true
     this.tape.set(this.head, this.blank_symbol)
   }
 
@@ -167,6 +172,8 @@ class Tape2D {
   }
 
   get_content() {
+    this.print_tape()
+    this.print_head()
     return this.tape
   }
 
