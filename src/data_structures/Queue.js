@@ -5,7 +5,7 @@ class Queue {
   }
 
   clone() {
-    return Queue(this.name, this.items)
+    return new Queue(this.name, this.items)
   }
 
   write(write_symbol) {
