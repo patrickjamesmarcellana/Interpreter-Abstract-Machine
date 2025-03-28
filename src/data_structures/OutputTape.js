@@ -6,7 +6,9 @@ class OutputTape {
   }
 
   clone() {
-    return new OutputTape(this.name, this.tape)
+    const curr_tape = this.items
+    const cloned_tape = curr_tape.slice()
+    return new OutputTape(cloned_tape, this.tape)
   }
 
   print(output_symbol) {

@@ -5,7 +5,9 @@ class Queue {
   }
 
   clone() {
-    return new Queue(this.name, this.items)
+    const curr_queue = this.items
+    const cloned_queue = curr_queue.slice()
+    return new Queue(this.name, cloned_queue)
   }
 
   write(write_symbol) {

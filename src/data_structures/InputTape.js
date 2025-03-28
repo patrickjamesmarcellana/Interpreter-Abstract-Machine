@@ -7,7 +7,9 @@ class InputTape {
   }
 
   clone() {
-    return new InputTape(this.name, this.head, this.tape)
+    const curr_tape = this.items
+    const cloned_tape = curr_tape.slice()
+    return new InputTape(this.name, cloned_tape, this.tape)
   }
 
   initialize(true_input) {

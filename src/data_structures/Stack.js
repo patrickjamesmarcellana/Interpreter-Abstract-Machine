@@ -5,7 +5,9 @@ class Stack {
   }
 
   clone() {
-    return new Stack(this.name, this.items)
+    const curr_stack = this.items
+    const cloned_stack = curr_stack.slice()
+    return new Stack(this.name, cloned_stack)
   }
 
   write(write_symbol) {

@@ -8,8 +8,14 @@ class Tape1D {
     // this.initialize()
   }
 
+  deep_clone_map(original_map) {
+    return new Map([...original_map].map(([key, value]) => [key, value]));
+  }
+
   clone() {
-    return new Tape1D(this.name, this.head, this.tape, this.is_input_tape)
+    const tape_copy = this.tape
+    const new_tape = this.deep_clone_map(tape_copy)
+    return new Tape1D(this.name, this.head, new_tape, this.is_input_tape)
   }
 
   set_as_input_tape() {
@@ -34,6 +40,8 @@ class Tape1D {
     }
 
     if(this.tape.get(right_key) === read_symbol) {
+      // console.log("Right key is " + right_key)
+      // console.log("Character to the right is " + this.tape.get(right_key))
       // overwrite symbol to the right
       this.tape.set(right_key, write_symbol)
 
@@ -100,9 +108,6 @@ class Tape1D {
   }
 
   get_content() {
-    this.print_tape()
-    this.print_head()
-
     const tape_in_array = [];
 
     // convert the tape to an array by sorting the key indices

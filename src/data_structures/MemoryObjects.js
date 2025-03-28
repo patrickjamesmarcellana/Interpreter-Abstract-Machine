@@ -7,7 +7,7 @@ class MemoryObjects{
     return new MemoryObjects(
       new Map(
         [...this.map].map(([key, value]) => 
-          [key, key === target_memory_object_name ? value.clone() : value])
+          [key, key === target_memory_object_name ? value.clone() : value.clone()])
       )
     )
   }

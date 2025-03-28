@@ -7,9 +7,15 @@ class Tape2D {
     this.is_input_tape = is_input_tape
     // this.initialize()
   }
-  
+
+  deep_clone_map(original_map) {
+    return new Map([...original_map].map(([key, value]) => [key, value]));
+  }
+
   clone() {
-    return new Tape2D(this.name, this.head, this.tape, this.is_input_tape)
+    const tape_copy = this.tape
+    const new_tape = this.deep_clone_map(tape_copy)
+    return new Tape2D(this.name, this.head, new_tape, this.is_input_tape)
   }
 
   get_key(x, y) {
