@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 function MachineSimulator({ machine }) {
   const [curr_timelines, set_curr_timelines] = useState(machine.get_current_timelines())
   const [has_steps, set_has_steps] = useState(true)
+  const [status, set_status] = useState("running")
 
   useEffect(() => {
     set_curr_timelines(machine.get_current_timelines());
@@ -21,6 +22,8 @@ function MachineSimulator({ machine }) {
       set_curr_timelines(timelines)
       set_has_steps(false)
     }
+
+    set_status(machine.get_final_verdict())
   }
   
   const handle_run_button_press = (event) => {
@@ -35,9 +38,9 @@ function MachineSimulator({ machine }) {
   return (
     <div className="">
       <button 
-        className={`rounded-lg py-3 px-6 bg-[#90EE90] mr-[5px] ${!has_steps ? "opacity-25 cursor-not-allowed" : "opacity-100"}`}
+        className={`rounded-lg py-3 px-6 bg-[#90EE90] mr-[5px] ${(!has_steps || status === "accept" || status === "reject") ? "opacity-25 cursor-not-allowed" : "opacity-100"}`}
         onClick={handle_step_button_press}
-        disabled={!has_steps}
+        disabled={!has_steps || status === "accept" || status === "reject"}
         title="Step">
         Step
       </button>
@@ -50,7 +53,7 @@ function MachineSimulator({ machine }) {
       <div
         id="timelines_display"
         className="">
-        {curr_timelines !== false &&
+        {curr_timelines !== false && status !== "accept" && status !== "reject" &&
           curr_timelines.map((timeline, index) => (
             <div key={index}>
               <div
@@ -81,6 +84,20 @@ function MachineSimulator({ machine }) {
             </div>
           ))
           
+        }
+
+        {
+          status === "reject" &&
+          <div className="bg-red-400 p-5 mt-5"> 
+          Rejected String
+          </div>
+        }
+
+        {
+          status === "accept" &&
+          <div className="bg-green-500 p-5 mt-5"> 
+          Accepted String
+          </div>
         }
         
 

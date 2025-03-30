@@ -7,9 +7,9 @@ class InputTape {
   }
 
   clone() {
-    const curr_tape = this.items
+    const curr_tape = this.tape
     const cloned_tape = curr_tape.slice()
-    return new InputTape(this.name, cloned_tape, this.tape)
+    return new InputTape(this.name, this.head, cloned_tape)
   }
 
   initialize(true_input) {
@@ -23,6 +23,9 @@ class InputTape {
   }
 
   scan_right(scan_symbol) {
+    console.log("TAPE PRINTING 1")
+    console.log(this.tape[this.head + 1])
+
     const right_key = this.head + 1
 
     if(right_key >= this.tape.length) {

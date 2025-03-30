@@ -55,15 +55,14 @@ class Machine {
     for(const timeline of this.timelines) {
       const curr_step = timeline.get_last_step()
       const curr_state = curr_step.get_curr_state()
-      // const memory_objects = curr_step.get_memory_objects()
+      const memory_objects = curr_step.get_memory_objects()
       const next_transitions = curr_state.get_transitions()
 
       for(const next_transition of next_transitions) {
         // memory_objects.get_map().get("T1").print_tape()
         const target_memory_object_name = next_transition.get_memory_object_name()
-        const new_memory_objects = curr_step.get_memory_objects().clone(target_memory_object_name) // clones only the target memory object
+        const new_memory_objects = memory_objects.clone(target_memory_object_name) // clones only the target memory object
         const memory_object_to_use = new_memory_objects.get_map().get(target_memory_object_name)
-
         // check if the transition function will succeed
         if(next_transition.action(memory_object_to_use)) {
           new_memory_objects.upsert(memory_object_to_use.name, memory_object_to_use)
@@ -88,6 +87,16 @@ class Machine {
     this.reset_timelines()
     this.timelines = new_timelines
     return this.timelines
+  }
+
+  get_final_verdict() {
+    if(this.timelines.length === 0 && this.accepted_timelines === 0 || this.rejected_timelines > 0) {
+      return "reject"
+    } else if(this.accepted_timelines > 0) {
+      return "accept"
+    }
+
+    return "running"
   }
 
   reset_timelines() {
