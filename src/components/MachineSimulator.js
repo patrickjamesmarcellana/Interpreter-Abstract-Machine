@@ -53,7 +53,7 @@ function MachineSimulator({ machine }) {
       <div
         id="timelines_display"
         className="">
-        {curr_timelines !== false && status !== "accept" && status !== "reject" &&
+        {curr_timelines !== false &&
           curr_timelines.map((timeline, index) => (
             <div key={index}>
               <div

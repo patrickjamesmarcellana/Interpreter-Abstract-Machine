@@ -30,9 +30,12 @@ class Tape2D {
     this.is_input_tape = true
   }
 
+  place_blank_symbol() {
+    this.tape.set(this.head, this.blank_symbol)
+  }
+
   initialize(true_input) {
     // initialize input here if is_input_tape = true
-    this.tape.set(this.head, this.blank_symbol)
     Array.from(true_input).forEach((char, index) => {
       this.tape.set(this.get_key(index + 1, 0), char)
     })

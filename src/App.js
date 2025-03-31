@@ -106,6 +106,9 @@ function App() {
       const MemoryInstanceClass = memory_object_map.get(memory_object_and_name[0])
       if(MemoryInstanceClass) {
         const memory_object_instance = new MemoryInstanceClass(memory_object_and_name[1])
+        if(memory_object_instance instanceof Tape1D || memory_object_instance instanceof Tape2D) {
+          memory_object_instance.place_blank_symbol()
+        }
         memory_objects.upsert(memory_object_and_name[1], memory_object_instance)
       }
     }

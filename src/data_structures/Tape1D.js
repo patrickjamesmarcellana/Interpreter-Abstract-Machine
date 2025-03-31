@@ -22,9 +22,12 @@ class Tape1D {
     this.is_input_tape = true
   }
 
+  place_blank_symbol() {
+    this.tape.set(this.head, this.blank_symbol)
+  }
+
   initialize(true_input) {
     // initialize input here if is_input_tape = true
-    this.tape.set(this.head, this.blank_symbol)
     Array.from(true_input).forEach((char, index) => {
       this.tape.set(index + 1, char)
     })
@@ -64,7 +67,7 @@ class Tape1D {
       this.tape.set(left_key, '#')
     }
 
-    if(this.tape.get(left_key) === write_symbol) {
+    if(this.tape.get(left_key) == read_symbol) {
       // overwrite symbol to the left
       this.tape.set(left_key, write_symbol)
 
@@ -74,7 +77,7 @@ class Tape1D {
       console.log(`Successfully read ${read_symbol} and wrote ${write_symbol} with the left operation on the 1D tape ${this.name}`)
       return true
     } else {
-      console.log(`Incorrect read symbol ${read_symbol} to the left of the tape head of the 1d tape ${this.name}`)
+      console.log(`Incorrect read symbol "${read_symbol}" to the left of the tape head of the 1d tape ${this.name}. It should be "${this.tape.get(left_key)}"`)
       return false
     }
   }
