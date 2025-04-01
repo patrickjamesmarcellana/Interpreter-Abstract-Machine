@@ -209,6 +209,7 @@ class Tape2D {
       }
       tape += row + "\n"
     }
+    console.log(tape)
     return tape
   }
 

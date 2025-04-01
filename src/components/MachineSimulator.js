@@ -76,7 +76,7 @@ function MachineSimulator({ machine }) {
                               {memory_object.get_type()} {memory_object.get_name()} Tape Head: {memory_object.get_head()}
                             </div>
                           }
-                          {memory_object.get_type()} {memory_object.get_name()} : {memory_object.get_content()}
+                          {memory_object.get_type()} {memory_object.get_name()} : <br/> <pre>{memory_object.get_content()}</pre>
                         </div>
                       ))}
                   </div>
