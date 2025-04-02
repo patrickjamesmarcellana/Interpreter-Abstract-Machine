@@ -116,8 +116,16 @@ class Tape1D {
     // convert the tape to an array by sorting the key indices
     [...this.tape.keys()]
       .sort((a, b) => a - b) 
-      .forEach(key => tape_in_array.push(this.tape.get(key)));
-    return tape_in_array.join(" ")
+      .forEach(key => {
+        if(key === this.head) {
+          tape_in_array.push(<span className="font-extrabold">{this.tape.get(key)}&nbsp;</span>)
+        } else {
+          tape_in_array.push(<span className="">{this.tape.get(key)}&nbsp;</span>)
+        }
+        
+      });
+      // row.push(<span key={`${x},${y}`} className="font-extrabold">{this.tape.get(this.get_key(x, y))}&nbsp;</span>)
+    return <div>{tape_in_array}</div>
   }
 
   get_head() {

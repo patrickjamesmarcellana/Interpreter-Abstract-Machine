@@ -36,28 +36,35 @@ function MachineSimulator({ machine, is_input_string_ready }) {
   }
 
   return (
-    <div className="">
-      <button 
-        className={`rounded-lg py-3 px-6 bg-[#90EE90] mr-[5px] ${(!has_steps || status === "accept" || status === "reject") ? "opacity-25 cursor-not-allowed" : "opacity-100"}`}
-        onClick={handle_step_button_press}
-        disabled={!has_steps || status === "accept" || status === "reject"}
-        title="Step">
-        Step
-      </button>
-      <button
-        className="rounded-lg py-3 px-6 bg-[#779ECB]"
-        onClick={handle_run_button_press}
-        title="Run">
-        Run
-      </button>
+    <div className="w-full flex flex-col">
+      <hr className="border-[1px] border-black my-[2vh]"/>
+      <div className="self-center text-xl font-bold my-[2vh]">
+        Simulation
+      </div>
+      <span>
+        <button 
+          className={`rounded-lg py-3 px-6 w-[47%] text-white bg-[#008000] mr-[5px] ${(!has_steps || status === "accept" || status === "reject") ? "opacity-50 cursor-not-allowed" : "opacity-100"}`}
+          onClick={handle_step_button_press}
+          disabled={!has_steps || status === "accept" || status === "reject"}
+          title="Step">
+          Step
+        </button>
+        <button
+          className="rounded-lg py-3 px-6 bg-[#185cc7] w-[47%] float-right text-white"
+          onClick={handle_run_button_press}
+          title="Run">
+          Run
+        </button>
+      </span>
+      
       <div
         id="timelines_display"
-        className="">
+        className="mt-[2vh] text-sm">
         {curr_timelines !== false &&
           curr_timelines.map((timeline, index) => (
             <div key={index}>
-              <div id="timeline_state">
-                  Timeline {index + 1} State: {timeline.is_accepted ? "Accepted" : timeline.is_dead ? "Dead" : "Running"}
+              <div id="timeline_state" className="bg-black text-white p-1 text-center font-bold mb-[1vh]">
+                  Timeline {index + 1} State: <span className={`${timeline.is_accepted ? "text-[#099e09]" : timeline.is_dead ? "text-[#c30010]" : "text-white"}`}>{timeline.is_accepted ? "Accepted" : timeline.is_dead ? "Dead" : "Running"}</span>
               </div>
 
               <div id="current_step_details">
@@ -72,7 +79,7 @@ function MachineSimulator({ machine, is_input_string_ready }) {
                               {memory_object.get_type()} {memory_object.get_name()} Tape Head: {memory_object.get_head()}
                             </div>
                           }
-                          {memory_object.get_type()} {memory_object.get_name()} : <br/> <pre>{memory_object.get_content()}</pre>
+                          {memory_object.get_type()} {memory_object.get_name()} : <br/> {memory_object.get_content()}
                         </div>
                       ))}
                   </div>

@@ -197,20 +197,26 @@ class Tape2D {
     const min_x = Math.min(...xs), max_x = Math.max(...xs)
     const min_y = Math.min(...ys), max_y = Math.max(...ys)
 
-    let tape = ""
+    const parsed_head = this.parse_key(this.head)
+
+    let tape = []
     for (let y = min_y; y <= max_y; y++) {
-      let row = "";
+      let row = []
       for (let x = min_x; x <= max_x; x++) {
         if(!this.tape.has(this.get_key(x, y))) {
-          row += "# "
+          row.push(<span key={`${x},${y}`}>#&nbsp;</span>)
         } else{
-          row += this.tape.get(this.get_key(x, y)) + " "
+          if(x === parsed_head[0] && y === parsed_head[1]) {
+            row.push(<span key={`${x},${y}`} className="font-extrabold">{this.tape.get(this.get_key(x, y))}&nbsp;</span>)
+          } else {
+            row.push(<span key={`${x},${y}`}>{this.tape.get(this.get_key(x, y))}&nbsp;</span>)
+          }
         }
       }
-      tape += row + "\n"
+      tape.push(<div key={`row-${y}`}>{row}<br/></div>)
     }
     console.log(tape)
-    return tape
+    return <div>{tape}</div>
   }
 
   get_head() {

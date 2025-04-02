@@ -76,7 +76,17 @@ class InputTape {
   get_content() {
     this.print_tape()
     this.print_head()
-    return this.tape.join(" ")
+    let tape_to_return = []
+
+    this.tape.forEach((item, index) => {
+      if(index === this.head) {
+        tape_to_return.push(<span className="font-extrabold">{item}&nbsp;</span>)
+      } else {
+        tape_to_return.push(<span className="">{item}&nbsp;</span>)
+      }
+    })
+
+    return <div>{tape_to_return}</div>
   }
 
   get_type() {
