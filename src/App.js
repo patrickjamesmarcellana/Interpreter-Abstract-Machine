@@ -283,7 +283,10 @@ function App() {
 
   return (
     <div 
-      className="my-[20px] mx-[20px]">
+      className="my-[5vh] flex flex-col items-center ">
+
+      <div className="text-5xl font-bold mb-[4vh]">Abstract Machine Interpreter</div>
+
       <MachineInputBox machine_specs={machine_specs} set_machine_specs={set_machine_specs} parse_machine_specs={parse_machine_specs} set_is_input_string_ready={set_is_input_string_ready} set_is_machine_ready={set_is_machine_ready}/>
       { is_machine_ready &&
         <StringInputBox input_string={input_string} set_input_string={set_input_string} set_is_input_string_ready={set_is_input_string_ready} is_machine_ready={is_machine_ready} parse_machine_specs={parse_machine_specs}/>
