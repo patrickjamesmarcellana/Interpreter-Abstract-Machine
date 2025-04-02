@@ -1,8 +1,13 @@
+import { useState } from 'react'
+
 function MachineInputBox({ machine_specs, set_machine_specs, set_is_input_string_ready, set_is_machine_ready }) {
+
+  const [machine_submitted, set_machine_submitted] = useState(false)
 
   const handle_machine_submission = (event) => {
     event.preventDefault()
     set_is_machine_ready(true)
+    set_machine_submitted(true)
   }
 
   return (
@@ -12,8 +17,9 @@ function MachineInputBox({ machine_specs, set_machine_specs, set_is_input_string
       <label 
         className="">
           <textarea
-            className="resize-none font-normal border-2 border-black text-[13px] p-2"
+            className="disabled:bg-white disabled:cursor-not-allowed resize-none font-normal border-2 border-black text-[13px] p-2"
             rows={15}
+            disabled={machine_submitted}
             cols={85} 
             name="machine_specs"
             required={true}
@@ -23,9 +29,10 @@ function MachineInputBox({ machine_specs, set_machine_specs, set_is_input_string
       </label>
       <br/>
       <input 
-        className="rounded-lg py-3 bg-[#008000] w-full drop-shadow-lg text-white hover:bg-gray-400 active:bg-gray-600"
+        className={`disabled:cursor-not-allowed rounded-lg py-3 bg-[#008000] w-full drop-shadow-lg text-white hover:bg-gray-400 active:bg-gray-600 disabled:opacity-50 disabled:hover:bg-[#008000]`}
         type="submit"
         value="Submit Machine Specs"
+        disabled={machine_submitted}
       />
     </form>
   )
