@@ -43,18 +43,18 @@ function MachineSimulator({ machine, is_input_string_ready }) {
       </div>
       <span>
         <button 
-          className={`rounded-lg py-3 px-6 w-[47%] text-white bg-[#008000] mr-[5px] ${(!has_steps || status === "accept" || status === "reject") ? "opacity-50 cursor-not-allowed" : "opacity-100"}`}
+          className={`rounded-lg py-3 px-6 w-[100%] text-white bg-[#008000] mr-[5px] ${(!has_steps || status === "accept" || status === "reject") ? "opacity-50 cursor-not-allowed" : "opacity-100"}`}
           onClick={handle_step_button_press}
           disabled={!has_steps || status === "accept" || status === "reject"}
           title="Step">
           Step
         </button>
-        <button
+        {/* <button
           className="rounded-lg py-3 px-6 bg-[#185cc7] w-[47%] float-right text-white"
           onClick={handle_run_button_press}
           title="Run">
           Run
-        </button>
+        </button> */}
       </span>
       
       <div
