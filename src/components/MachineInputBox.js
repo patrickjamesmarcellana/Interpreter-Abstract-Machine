@@ -40,13 +40,13 @@ function MachineInputBox({ machine_specs, set_machine_specs, set_is_input_string
       <br/>
       <span>
         <input 
-          className={`disabled:cursor-not-allowed rounded-lg py-3 bg-[#008000] w-[45%] drop-shadow-lg text-white hover:bg-gray-400 active:bg-gray-600 disabled:opacity-50 disabled:hover:bg-[#008000]`}
+          className={`disabled:cursor-not-allowed rounded-lg py-3 bg-[#008000] w-[47%] drop-shadow-lg text-white hover:bg-gray-400 active:bg-gray-600 disabled:opacity-50 disabled:hover:bg-[#008000]`}
           type="submit"
           value="Submit Machine Specs"
           disabled={machine_submitted}
         />
         <input 
-          className={`rounded-lg py-3 bg-[#c30010] w-[45%] float-right drop-shadow-lg text-white hover:bg-gray-400 active:bg-gray-600`}
+          className={`rounded-lg py-3 bg-[#c30010] w-[47%] float-right drop-shadow-lg text-white hover:bg-gray-400 active:bg-gray-600`}
           type="button"
           onClick={handle_reset_button_click}
           value="Reset Machine Specs"
