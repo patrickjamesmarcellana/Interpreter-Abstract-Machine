@@ -7,7 +7,7 @@ function MachineInputBox({ machine_specs, set_machine_specs, set_is_input_string
 
   return (
     <form 
-      className="mb-[30px]"
+      className="mb-[4vh]"
       onSubmit={handle_machine_submission}>
       <label 
         className="">
@@ -25,6 +25,7 @@ function MachineInputBox({ machine_specs, set_machine_specs, set_is_input_string
       <input 
         className="rounded-lg py-3 bg-[#008000] w-full drop-shadow-lg text-white hover:bg-gray-400 active:bg-gray-600"
         type="submit"
+        value="Submit Machine Specs"
       />
     </form>
   )

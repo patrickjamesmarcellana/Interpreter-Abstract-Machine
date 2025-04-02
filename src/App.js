@@ -283,7 +283,7 @@ function App() {
 
   return (
     <div 
-      className="my-[5vh] flex flex-col items-center ">
+      className="my-[5vh] w-fit mx-auto flex flex-col items-center bg-red-300">
 
       <div className="text-[40px] font-bold mb-[1vh]">Abstract Machine Interpreter</div>
 
