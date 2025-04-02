@@ -23,7 +23,7 @@ function MachineInputBox({ machine_specs, set_machine_specs, set_is_input_string
       </label>
       <br/>
       <input 
-        className="rounded-lg py-3 bg-[#008000] w-full drop-shadow-lg text-white"
+        className="rounded-lg py-3 bg-[#008000] w-full drop-shadow-lg text-white hover:bg-gray-400 active:bg-gray-600"
         type="submit"
       />
     </form>
