@@ -69,17 +69,17 @@ function MachineSimulator({ machine, is_input_string_ready }) {
 
               <div id="current_step_details">
                   <div id="current_step_state">
-                      Current State Name: {timeline.steps_list[timeline.steps_list.length - 1].curr_state.name}
+                      <span className="font-bold">Current State Name:&nbsp;</span>{timeline.steps_list[timeline.steps_list.length - 1].curr_state.name}
                   </div>
                   <div id="current_memory_objects">
                       {Array.from(timeline.steps_list[timeline.steps_list.length - 1].memory_objects.get_map()).map(([key, memory_object]) => (
-                        <div key={key}>
-                          {(["Input Tape", "1D Tape", "2D Tape"].includes(memory_object.get_type())) &&
+                        <div key={key} className="mb-[1vh]">
+                          {/* {(["Input Tape", "1D Tape", "2D Tape"].includes(memory_object.get_type())) &&
                             <div id="tape_head">
                               {memory_object.get_type()} {memory_object.get_name()} Tape Head: {memory_object.get_head()}
                             </div>
-                          }
-                          {memory_object.get_type()} {memory_object.get_name()} : <br/> {memory_object.get_content()}
+                          } */}
+                          <span className="font-bold">{memory_object.get_type()} ({memory_object.get_name()})</span> : <br/> {memory_object.get_content()}
                         </div>
                       ))}
                   </div>

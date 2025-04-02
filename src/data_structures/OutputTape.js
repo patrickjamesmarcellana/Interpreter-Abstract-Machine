@@ -30,7 +30,7 @@ class OutputTape {
   }
 
   get_type() {
-    return "Output Tape"
+    return "Output"
   }
 }
 

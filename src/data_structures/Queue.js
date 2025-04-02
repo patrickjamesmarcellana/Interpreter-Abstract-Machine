@@ -65,7 +65,7 @@ class Queue {
 
   get_content() {
     this.log()
-    return this.items.join("-->")
+    return <div className=""><span className="text-red-700">[Front]&nbsp;</span>{this.items.join(" ")}<span className="text-red-700">&nbsp;[Back]</span></div>
   }
 
   get_type() {
