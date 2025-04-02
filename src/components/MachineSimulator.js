@@ -38,7 +38,7 @@ function MachineSimulator({ machine, is_input_string_ready }) {
   return (
     <div className="w-full flex flex-col">
       <hr className="border-[1px] border-black my-[2vh]"/>
-      <div className="self-center text-xl font-bold my-[2vh]">
+      <div className="self-center text-2xl font-bold my-[2vh]">
         Simulation
       </div>
       <span>
@@ -59,11 +59,11 @@ function MachineSimulator({ machine, is_input_string_ready }) {
       
       <div
         id="timelines_display"
-        className="mt-[2vh] text-sm">
+        className="mt-[2vh] text-base">
         {curr_timelines !== false &&
           curr_timelines.map((timeline, index) => (
             <div key={index}>
-              <div id="timeline_state" className="bg-black text-white p-1 text-center font-bold mb-[1vh]">
+              <div id="timeline_state" className="bg-black text-base text-white p-1 text-center font-bold mb-[1vh]">
                   Timeline {index + 1} State: <span className={`${timeline.is_accepted ? "text-[#099e09]" : timeline.is_dead ? "text-[#c30010]" : "text-white"}`}>{timeline.is_accepted ? "Accepted" : timeline.is_dead ? "Dead" : "Running"}</span>
               </div>
 
@@ -83,7 +83,7 @@ function MachineSimulator({ machine, is_input_string_ready }) {
                         </div>
                       ))}
                   </div>
-              </div> <br/>
+              </div> 
             </div>
           ))
           
@@ -91,15 +91,15 @@ function MachineSimulator({ machine, is_input_string_ready }) {
 
         {
           status === "reject" &&
-          <div className="bg-red-400 p-5 mt-5"> 
-          Rejected String
+          <div className="bg-black p-2 mt-5 text-[#C30010] font-bold text-basetext-center"> 
+          Final: Rejected String
           </div>
         }
 
         {
           status === "accept" &&
-          <div className="bg-green-500 p-5 mt-5"> 
-          Accepted String
+          <div className="bg-black p-2 mt-5 text-[#099e09] font-bold text-base text-center"> 
+          Final: Accepted String
           </div>
         }
         
