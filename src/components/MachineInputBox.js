@@ -12,7 +12,7 @@ function MachineInputBox({ machine_specs, set_machine_specs, set_is_input_string
       <label 
         className="">
           <textarea
-            className="font-normal border-2 border-black text-[13px] p-2"
+            className="resize-none font-normal border-2 border-black text-[13px] p-2"
             rows={15}
             cols={85} 
             name="machine_specs"
