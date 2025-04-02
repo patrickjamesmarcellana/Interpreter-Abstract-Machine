@@ -10,13 +10,11 @@ function MachineInputBox({ machine_specs, set_machine_specs, set_is_input_string
       className="mb-[30px]"
       onSubmit={handle_machine_submission}>
       <label 
-        className="font-bold">
-          Input your machine here:
-          <br/>
+        className="">
           <textarea
-            className="font-normal border-2 border-black"
-            rows={10}
-            cols={50} 
+            className="font-normal border-2 border-black text-[13px] p-2"
+            rows={15}
+            cols={85} 
             name="machine_specs"
             required={true}
             placeholder="Enter machine specifications."
@@ -25,7 +23,7 @@ function MachineInputBox({ machine_specs, set_machine_specs, set_is_input_string
       </label>
       <br/>
       <input 
-        className="rounded-lg py-3 px-6 bg-[#90EE90]"
+        className="rounded-lg py-3 bg-[#008000] w-full drop-shadow-lg text-white"
         type="submit"
       />
     </form>

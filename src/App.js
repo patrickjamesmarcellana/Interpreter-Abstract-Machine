@@ -285,7 +285,7 @@ function App() {
     <div 
       className="my-[5vh] flex flex-col items-center ">
 
-      <div className="text-5xl font-bold mb-[4vh]">Abstract Machine Interpreter</div>
+      <div className="text-[40px] font-bold mb-[1vh]">Abstract Machine Interpreter</div>
 
       <MachineInputBox machine_specs={machine_specs} set_machine_specs={set_machine_specs} parse_machine_specs={parse_machine_specs} set_is_input_string_ready={set_is_input_string_ready} set_is_machine_ready={set_is_machine_ready}/>
       { is_machine_ready &&
