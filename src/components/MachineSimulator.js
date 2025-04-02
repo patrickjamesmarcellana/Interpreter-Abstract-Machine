@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 
-function MachineSimulator({ machine }) {
+function MachineSimulator({ machine, is_input_string_ready }) {
   const [curr_timelines, set_curr_timelines] = useState(machine.get_current_timelines())
   const [has_steps, set_has_steps] = useState(true)
   const [status, set_status] = useState("running")
 
   useEffect(() => {
     set_curr_timelines(machine.get_current_timelines());
-  }, [machine])
+  }, [machine, is_input_string_ready])
 
   const handle_step_button_press = (event) => {
     event.preventDefault()
@@ -56,19 +56,15 @@ function MachineSimulator({ machine }) {
         {curr_timelines !== false &&
           curr_timelines.map((timeline, index) => (
             <div key={index}>
-              <div
-                id="timeline_state">
+              <div id="timeline_state">
                   Timeline {index + 1} State: {timeline.is_accepted ? "Accepted" : timeline.is_dead ? "Dead" : "Running"}
               </div>
 
-              <div
-                id="current_step_details">
-                  <div
-                    id="current_step_state">
+              <div id="current_step_details">
+                  <div id="current_step_state">
                       Current State Name: {timeline.steps_list[timeline.steps_list.length - 1].curr_state.name}
                   </div>
-                  <div
-                    id="current_memory_objects">
+                  <div id="current_memory_objects">
                       {Array.from(timeline.steps_list[timeline.steps_list.length - 1].memory_objects.get_map()).map(([key, memory_object]) => (
                         <div key={key}>
                           {(["Input Tape", "1D Tape", "2D Tape"].includes(memory_object.get_type())) &&
@@ -100,7 +96,6 @@ function MachineSimulator({ machine }) {
           </div>
         }
         
-
       </div>
     </div>
   )

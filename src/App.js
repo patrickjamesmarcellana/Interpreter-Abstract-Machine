@@ -292,7 +292,7 @@ function App() {
         <StringInputBox input_string={input_string} set_input_string={set_input_string} set_is_input_string_ready={set_is_input_string_ready} is_machine_ready={is_machine_ready} parse_machine_specs={parse_machine_specs}/>
       }
       { machine && is_input_string_ready && is_input_tape_initialized &&
-        <MachineSimulator machine={machine}/>
+        <MachineSimulator machine={machine} is_input_string_ready={is_input_string_ready}/>
       }
     </div>
   );
