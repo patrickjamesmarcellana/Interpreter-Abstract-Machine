@@ -220,7 +220,10 @@ function App() {
     let destination_state_name = ""
 
     if(commands_with_one_symbol.includes(command)) {
-      [read_symbol, destination_state_name] = transition_line.slice(1, -1).split(",")
+      const cleaned_line = transition_line.slice(1, -1)
+      read_symbol = cleaned_line.slice(0,1)
+      destination_state_name = cleaned_line.slice(2)
+      // [read_symbol, destination_state_name] = transition_line.slice(1, -1).split(",")
     } else if(commands_with_two_symbols.includes(command)) {
       const match = transition_line.match(/\(([^/,]+)\/([^/,]+),([^/)]+)\)/)
       if(match) {
