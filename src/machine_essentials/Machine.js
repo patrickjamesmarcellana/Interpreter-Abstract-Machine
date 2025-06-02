@@ -85,7 +85,13 @@ class Machine {
     }
 
     this.reset_timelines()
+    const old_timelines = this.timelines.slice()
     this.timelines = new_timelines
+
+    if(this.timelines.length === 0) {
+      return old_timelines
+    }
+
     return this.timelines
   }
 

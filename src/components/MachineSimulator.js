@@ -91,7 +91,7 @@ function MachineSimulator({ machine, is_input_string_ready }) {
 
         {
           status === "reject" &&
-          <div className="bg-black p-2 mt-5 text-[#C30010] font-bold text-basetext-center"> 
+          <div className="bg-black p-2 mt-5 text-[#C30010] font-bold text-base text-center"> 
           Final: Rejected String
           </div>
         }
